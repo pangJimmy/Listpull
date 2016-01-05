@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_layout_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/layout_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10" >
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:minHeight="40dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/tab_home"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/tab_home_selected"
+            android:layout_weight="1" >
+
+        </Button>
+
+        <Button
+            android:id="@+id/tab_getpackage"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/tab_post_normal"
+            android:layout_weight="1" >
+
+        </Button>
+
+        <Button
+            android:id="@+id/tab_post"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/tab_shop_normal"
+            android:layout_weight="1" >
+
+        </Button>
+
+        <Button
+            android:id="@+id/tab_user"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/tab_user_normal"
+            android:layout_weight="1" >
+
+        </Button>
+    </LinearLayout>
+
+</LinearLayout>

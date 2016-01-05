@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_layout_bg"
+    android:orientation="vertical" >
+    <include layout="@layout/m_title"/>
+   <!-- 设置分割线为透明的，使用自定义的分割线 -->
+    <ListView
+        android:id="@+id/listView_frag_package"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="#00ffffff" >
+    </ListView>
+
+</LinearLayout>

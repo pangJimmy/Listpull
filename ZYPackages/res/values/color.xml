@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="tab_bg">#aa57a9d9</color>
+    <color name="title_bg">#aa57a9d9</color>
+    <color name="title_font_bg">#ffffff</color>
+    <color name="list_update_bg">#4c9ac7</color>
+        <color name="white">#ffffff</color>
+    <color name="transparent">#00000000</color>
+    <color name="gold">#b89766</color>
+    <color name="black">#000000</color>
+    <color name="gray_line_bg">#c2c4c4</color>
+    
+         <color name="result_view">#b0000000</color>
+      <color name="viewfinder_mask">#60000000</color>
+      <color name="possible_result_points">#c0ffff00</color> 
+      <color name="search_color">#dad6d6</color> 
+</resources>

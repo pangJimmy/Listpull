@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >  
+<include layout="@layout/top_normal"/>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:orientation="horizontal"
+    android:layout_margin="10dp"
+    android:padding="5dp"
+    android:background="@drawable/edit_search_bg" >
+    <ImageView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_search"/>
+
+    <EditText
+        android:id="@+id/editText_search_order"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:hint="请输入或扫描运单号"
+        android:textSize="18sp"
+        android:background="@color/white"
+        >
+    </EditText>
+    <ImageView 
+        android:id="@+id/imageView_search_sys"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_search_2"/>
+</LinearLayout>
+
+<Button
+    android:id="@+id/button_search_commit"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    android:text="查询" />
+
+</LinearLayout>

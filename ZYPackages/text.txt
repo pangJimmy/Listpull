@@ -1,0 +1,92 @@
+err=0
+&rows=5
+&settime1=2015/11/13 17:18:05&orderno1=000002&lockcode1=1&boxid1=7&address1=D5F1D2ABBFC6BCBC2D41303031&gettime1=&getstyle1=0&state1=0
+&settime2=2015/11/13 17:18:20&orderno2=000003&lockcode2=1&boxid2=3&address2=D5F1D2ABBFC6BCBC2D41303031&gettime2=&getstyle2=0&state2=0
+&settime3=2015/11/13 17:18:23&orderno3=000004&lockcode3=1&boxid3=4&address3=D5F1D2ABBFC6BCBC2D41303031&gettime3=&getstyle3=0&state3=0
+&settime4=2015/11/13 17:18:26&orderno4=000005&lockcode4=1&boxid4=5&address4=D5F1D2ABBFC6BCBC2D41303031&gettime4=&getstyle4=0&state4=0
+&settime5=2015/11/13 17:18:30&orderno5=00006&lockcode5=7&boxid5=6&address5=&gettime5=&getstyle5=0&state5=0
+
+
+
+&settime1=2015/11/13 17:18:05 投件时间
+&orderno1=000002 快递单号
+&lockcode1=1 快递柜编号
+&boxid1=7 快递柜箱号
+&address1=D5F1D2ABBFC6BCBC2D41303031 快递柜标识
+&gettime1=  取件时间
+&getstyle1=0  取件方式
+&state1=0  当前状态   //0 未取
+
+rows:记录总条数
+settime:投件时间
+orderno:快递单号
+lockcode:快递柜编号
+boxid:快递柜箱号
+address:快递柜标识
+gettime:取件时间
+getstyle:取件方式
+state:当前状态
+
+ err=0&rows=6
+ &settime1=2015/11/13 11:14:04&orderno1=000001&lockcode1=1&boxid1=1&address1=D5F1D2ABBFC6BCBC2D41303031&gettime1=2015/11/17 16:37:00&getstyle1=1&state1=1
+ &settime2=2015/11/13 17:18:05&orderno2=000002&lockcode2=1&boxid2=7&address2=D5F1D2ABBFC6BCBC2D41303031&gettime2=&getstyle2=0&state2=0&settime3=2015/11/13 17:18:20&orderno3=000003&lockcode3=1&boxid3=3&address3=D5F1D2ABBFC6BCBC2D41303031&gettime3=&getstyle3=0&state3=0&settime4=2015/11/13 17:18:23&orderno4=000004&lockcode4=1&boxid4=4&address4=D5F1D2ABBFC6BCBC2D41303031&gettime4=&getstyle4=0&state4=0&settime5=2015/11/13 17:18:26&orderno5=000005&lockcode5=1&boxid5=5&address5=D5F1D2ABBFC6BCBC2D41303031&gettime5=&getstyle5=0&state5=0&settime6=2015/11/13 17:18:30&orderno6=00006&lockcode6=7&boxid6=6&address6=&gettime6=&getstyle6=0&state6=0
+
+
+//获取快递柜箱子状态
+err=0
+&boxnum=10
+&id1=1&type1=1&state1=0
+&id2=2&type2=2&state2=0
+&id3=3&type3=3&state3=0
+&id4=4&type4=4&state4=0
+&id5=5&type5=5&state5=0
+&id6=6&type6=6&state6=0
+&id7=7&type7=7&state7=0
+&id8=8&type8=8&state8=0
+&id9=9&type9=9&state9=0
+&id10=10&type10=0&state10=0
+
+err=0
+&cabinetname=D5F1D2AB2D41303031
+&boxnum=10
+&id1=1&boxname1=A001&type1=1&state1=0
+&id2=2&boxname2=&type2=2&state2=2
+&id3=3&boxname3=&type3=3&state3=2
+&id4=4&boxname4=&type4=4&state4=2
+&id5=5&boxname5=&type5=5&state5=2
+&id6=6&boxname6=&type6=6&state6=2
+&id7=7&boxname7=&type7=7&state7=2
+&id8=8&boxname8=&type8=8&state8=2
+&id9=9&boxname9=&type9=9&state9=2
+&id10=10&boxname10=&type10=0&state10=0
+
+1 快递柜(大)
+2 快递柜(中)
+3 快递柜(小)
+4 信报柜
+5 展览柜
+
+//投件信息返回
+err=0
+&rows=16
+&settime1=2015/11/26 17:35:07
+&orderno1=0002
+&uTel1=15115785660
+&lockcode1=1
+&boxid1=2
+&address1=D5F1D2AB2D41303031
+&gettime1=
+&getstyle1=0
+&state1=0
+
+&settime2=2015/11/26 17:35:16&orderno2=0003&uTel2=15115785660&lockcode2=1&boxid2=3&address2=D5F1D2AB2D41303031&gettime2=&getstyle2=0&state2=0
+&settime3=2015/11/26 17:35:24&orderno3=00004&uTel3=15115785660&lockcode3=1&boxid3=4&address3=D5F1D2AB2D41303031&gettime3=&getstyle3=0&state3=0&settime4=2015/11/26 17:35:31&orderno4=0005&uTel4=15115785660&lockcode4=1&boxid4=5&address4=D5F1D2AB2D41303031&gettime4=&getstyle4=0&state4=0&settime5=2015/11/26 17:35:41&orderno5=0006&uTel5=15115785660&lockcode5=1&boxid5=6&address5=D5F1D2AB2D41303031&gettime5=&getstyle5=0&state5=0&settime6=2015/11/26 17:37:48&orderno6=00007&uTel6=18188625692&lockcode6=1&boxid6=7&address6=D5F1D2AB2D41303031&gettime6=&getstyle6=0&state6=0&settime7=2015/11/26 17:37:54&orderno7=00008&uTel7=18188625692&lockcode7=1&boxid7=8&address7=D5F1D2AB2D41303031&gettime7=&getstyle7=0&state7=0&settime8=2015/11/26 17:38:03&orderno8=00009&uTel8=18188625692&lockcode8=1&boxid8=9&address8=D5F1D2AB2D41303031&gettime8=&getstyle8=0&state8=0&settime9=2015/11/27 16:46:23&orderno9=123456789&uTel9=15115785660&lockcode9=1&boxid9=1&address9=D5F1D2AB2D41303031&gettime9=&getstyle9=0&state9=0&settime10=2015/11/27 22:24:36&orderno10=6956675100351&uTel10=15115785660&lockcode10=1&boxid10=12&address10=D5F1D2AB2D41303031&gettime10=&getstyle10=0&state10=0&settime11=2015/11/27 22:28:22&orderno11=6956675100351&uTel11=15115785660&lockcode11=1&boxid11=13&address11=D5F1D2AB2D41303031&gettime11=&getstyle11=0&state11=0&settime12=2015/11/27 22:37:31&orderno12=6956675100351&uTel12=15115785660&lockcode12=1&boxid12=14&address12=D5F1D2AB2D41303031&gettime12=&getstyle12=0&state12=0&settime13=2015/11/27 22:39:05&orderno13=6956675100351&uTel13=15115785660&lockcode13=1&boxid13=15&address13=D5F1D2AB2D41303031&gettime13=&getstyle13=0&state13=0&settime14=2015/11/27 22:41:33&orderno14=6956675100351&uTel14=15115785660&lockcode14=1&boxid14=16&address14=D5F1D2AB2D41303031&gettime14=&getstyle14=0&state14=0&settime15=2015/11/27 22:42:11&orderno15=6956675100351&uTel15=15115785660&lockcode15=1&boxid15=17&address15=D5F1D2AB2D41303031&gettime15=&getstyle15=0&state15=0&settime16=2015/11/27 22:44:15&orderno16=6956675100351&uTel16=15115785660&lockcode16=1&boxid16=18&address16=D5F1D2AB2D41303031&gettime16=&getstyle16=0&state16=0
+
+
+
+
+
+
+
+
+

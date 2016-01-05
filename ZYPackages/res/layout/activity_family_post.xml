@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <include layout="@layout/top_normal" />
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp" >
+
+            <TextView
+                style="@style/UserFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="柜名称：" />
+
+            <EditText
+                android:id="@+id/editText_family_lock"
+                style="@style/UserFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:focusable="false" >
+            </EditText>
+
+            <ImageView
+                android:id="@+id/imageView_family_sys"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_m_saoyisao" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_line_bg" />
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp" >
+
+            <TextView
+                style="@style/UserFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="备注留言：" />
+
+            <EditText
+                android:id="@+id/editText_family_letter"
+                style="@style/UserFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                 >
+            </EditText>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_line_bg" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp" >
+
+            <TextView
+                style="@style/UserFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="收件人电话：" />
+
+            <EditText
+                android:id="@+id/editText_family_tel"
+                style="@style/UserFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="number"
+                 >
+            </EditText>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_line_bg" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp" >
+
+            <TextView
+                style="@style/UserFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="箱号选择：" />
+
+            <Button
+                android:id="@+id/button_family_select_box"
+                style="@style/UserFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="点击选择箱子" >
+            </Button>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_line_bg" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"        
+        android:layout_marginTop="10dp"
+        android:text="@string/family_post_tips" />
+
+    <Button
+        android:id="@+id/button_family_commit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:text="开箱投递" />
+
+</LinearLayout>

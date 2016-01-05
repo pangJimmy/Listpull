@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+<LinearLayout 
+        android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:padding="5dp"
+    android:orientation="horizontal"
+    android:background="@color/title_bg"
+    >
+                <ImageView
+                android:id="@+id/imageButton_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/back_btn" />
+
+    <EditText
+        android:id="@+id/editText_shop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="扫描箱门二维码进行支付"
+        android:textSize="14sp"
+        android:layout_weight="1"
+        android:focusable="false"
+         >
+    </EditText>
+
+    <ImageView
+        android:id="@+id/imageView_shop_sys"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_search_2" />
+
+    <TextView
+        android:id="@+id/textView_frag_shop_enter"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:textColor="@color/white"
+        android:text="" />
+
+</LinearLayout>
+    <GridView 
+        android:id="@+id/gridview_shop"
+            android:layout_width="match_parent"
+    		android:layout_height="match_parent"
+    		android:numColumns="3"
+   			 android:horizontalSpacing="5dp"
+        ></GridView>
+
+</LinearLayout>

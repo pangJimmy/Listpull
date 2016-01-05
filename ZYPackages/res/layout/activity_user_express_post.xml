@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <include layout="@layout/top_normal" />
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp" >
+
+            <TextView
+                style="@style/UserFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="柜名称：" />
+
+            <EditText
+                android:id="@+id/editText_user_express_post_lock"
+                style="@style/UserFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:focusable="false" >
+            </EditText>
+
+            <ImageView
+                android:id="@+id/imageView_user_express_post_lock_sys"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_m_saoyisao" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_line_bg" />
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp" >
+
+            <TextView
+                style="@style/UserFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="快递公司：" />
+
+            <TextView
+                android:id="@+id/textView_user_express_company"
+                style="@style/UserFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                 >
+            </TextView>
+        </LinearLayout>
+         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:orientation="horizontal"
+            android:padding="5dp" >
+           <GridView 
+               android:id="@+id/gridView_user_post_company"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:numColumns="4"
+               
+               android:horizontalSpacing="10dp"
+               ></GridView>
+           
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_line_bg" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp" >
+
+            <TextView
+                style="@style/UserFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="箱号选择：" />
+
+            <Button
+                android:id="@+id/button_user_express_post_select_box"
+                style="@style/UserFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="点击选择箱子" >
+            </Button>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_line_bg" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"        
+        android:layout_marginTop="10dp"
+        android:text="@string/user_post_tips" />
+
+    <Button
+        android:id="@+id/button_user_express_commit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:text="开箱投递" />
+
+</LinearLayout>

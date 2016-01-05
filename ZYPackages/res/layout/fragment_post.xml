@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/title_bg"
+        android:orientation="horizontal"
+        android:layout_weight="2"
+        android:minHeight="50dp" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+                       <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10"
+                android:gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center_horizontal"
+                style="@style/TitleFont"
+                android:text="投件" /> 
+            
+
+
+        </LinearLayout>
+                <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView_post_not_receive"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10"
+                android:gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center_horizontal"
+                style="@style/TitleFont"
+                android:text="未签收" />
+
+            <TextView
+                android:id="@+id/textView_post_not_receive_bar"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="3dp"
+                android:background="@color/title_font_bg" />
+
+        </LinearLayout>
+                <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView_post_received"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10"
+                android:gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center_horizontal"
+                style="@style/TitleFont"
+                android:text="已签收" />
+
+            <TextView
+                android:id="@+id/textView_post_received_bar"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="2dp"
+                 />
+
+        </LinearLayout>
+                <ImageView
+            android:id="@+id/img_frag_saoyisao"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/img_m_saoyisao"
+            android:layout_margin="10dp"
+             >
+
+
+        </ImageView>
+
+    </LinearLayout>
+        <com.jingchen.pulltorefresh.PullToRefreshLayout
+        android:id="@+id/listView_frag_post_data"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="16" >
+        <com.jingchen.pulltorefresh.PullableListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="#AAA"
+        android:dividerHeight="5dp" />
+    </com.jingchen.pulltorefresh.PullToRefreshLayout>
+    <TextView 
+        android:id="@+id/textView_frag_get_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        />
+    
+
+</LinearLayout>

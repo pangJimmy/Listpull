@@ -1,0 +1,27 @@
+<resources>
+
+    <string name="app_name">耀生活</string>
+    <string name="again_exit_system">再按一次返回键退出程序</string>
+     <string name="scan_text">将二维码放入框内, 即可自动扫描</string>   
+     <string name="post_tips">投递流程：\n
+         1.先扫描箱柜上二维码，获取箱柜编码；\n
+         2.填写快递单号或扫描输入；\n
+         3.填写收件手机号码，手机号码为11位数字；\n
+         4.选择投递箱。</string>
+     <string name="user_post_tips">投递流程：\n
+         1.先扫描箱柜上二维码，获取箱柜编码；\n
+         2.选择收件的快递公司；\n
+         3.选择寄存箱门\n
+         4.开箱投递。</string>
+         <string name="search">查询</string>
+              <string name="other_service_tips">投递流程：\n
+         1.先扫描箱柜上二维码，获取箱柜编码；\n
+         2.选择第三方服务公司；\n
+         3.选择寄存箱门\n
+         4.开箱投递。</string>
+              <string name="family_post_tips">投递流程：\n
+         1.先扫描箱柜上二维码，获取箱柜编码；\n
+         2.给收件人留言，说明物品内容；\n
+         3.填写收件人手机号码，手机号码为11为数字；\n
+         4.选择寄存箱门。</string>
+</resources>
