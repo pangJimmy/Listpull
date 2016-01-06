@@ -20,6 +20,7 @@
         android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
                 <activity
             android:name="com.szzy.packages.activity.LoginActivity"
+            android:launchMode="singleTask"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,7 +55,9 @@
     	<!-- 商店购物界面 -->
     	<activity android:name="com.szzy.packages.activity.ShopActicity"></activity>
     	<!-- 取件签收界面 -->
-    	<activity android:name="com.szzy.packages.activity.GetPackageActivity"></activity>      	     	  	
+    	<activity android:name="com.szzy.packages.activity.GetPackageActivity"></activity> 
+    	<!-- 信箱界面 -->
+    	<activity android:name="com.szzy.packages.activity.MailBoxActivity"></activity>     	     	  	
     </application>
 
 </manifest>

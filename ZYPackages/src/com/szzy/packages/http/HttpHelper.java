@@ -27,7 +27,7 @@ import android.util.Log;
  */
 public class HttpHelper {
 	/**服务器地址***////
-	private final String BASE_URI = "http://112.74.67.62:8008/";//http://112.74.67.62:8008/     //szzhenyao.6655.la:8008
+	private final String BASE_URI = "http://szzhenyao.6655.la:8009/";//http://112.74.67.62:8008/     //szzhenyao.6655.la:8008
 	/**连接测试指令***/
 	private final int CMD_Test = 1 ;
 	/**用户登录指令***/
@@ -154,7 +154,7 @@ public class HttpHelper {
 					HttpGet httpget = new HttpGet();
 					String request = BASE_URI + "?CMD=" + CMD_HTTP_REGISTER_USER +"&username=" + user +
 							"&userpass=" + password + "&realname=" + realName + "&idcard=" + idCard  + 
-							"&email=" + email + "usertype=" + userType;
+							"&email=" + email + "&usertype=" + userType;
 					LogInfo("register  request = ", request) ;
 					httpget.setURI(new URI(request));
 					//设置连接超时为5S
@@ -163,6 +163,7 @@ public class HttpHelper {
 					if(response.getStatusLine().getStatusCode() == 200){
 						String strResult = EntityUtils.toString(response.getEntity(),"UTF-8");
 						if(strResult != null){
+							callback.call(null, HttpUtil.getError(strResult));
 							LogInfo("register  strResult = ", strResult) ;
 							return ;
 						}
@@ -191,6 +192,7 @@ public class HttpHelper {
 			@Override
 			public void run() {
 				try{
+					long firstTime = System.currentTimeMillis() ;
 					HttpClient client = new DefaultHttpClient();
 					HttpGet httpget = new HttpGet();
 					String request = BASE_URI + "?CMD=" + CMD_HTTP_LOGIN +"&username=" + user + 
@@ -204,6 +206,10 @@ public class HttpHelper {
 						String strResult = EntityUtils.toString(response.getEntity(),"UTF-8");
 						if(strResult != null){
 							LogInfo("login  strResult = ", strResult) ;
+							if(System.currentTimeMillis() - firstTime > 8000){
+								callback.call(null, TipsHttpError.ERROR_NETWORK);
+								return ;
+							}
 							//回调
 							callback.call(HttpUtil.resolveUserLogin(strResult), HttpUtil.getError(strResult));
 							return ;

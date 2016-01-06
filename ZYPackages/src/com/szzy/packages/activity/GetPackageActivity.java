@@ -69,10 +69,10 @@ public class GetPackageActivity extends Activity implements OnClickListener{
 	private final int MSG_UPDATE = 1010 ;//更新listview信息
 	
 	/******-----分割线-----*******/
-	//用于信箱开启
-	private ListView lvMailBox ;
-	//信箱个数
-	private List<MailBox> listMailBox ;
+//	//用于信箱开启
+//	private ListView lvMailBox ;
+//	//信箱个数
+//	private List<MailBox> listMailBox ;
 	/******-----分割线-----*******/
 	
 	private Handler mHandler = new Handler(){// 消息处理器，用于给出http错误提示
@@ -125,13 +125,13 @@ public class GetPackageActivity extends Activity implements OnClickListener{
 		ptrl = (PullToRefreshLayout) findViewById(R.id.listView_frag_get_data);
 		listViewData = (ListView) ptrl.getPullableView();
 		
-		lvMailBox = (ListView) findViewById(R.id.listView_frag_get_mail_box) ;
-		listMailBox = mApp.getLoginInfo().getListBox() ;
-		//信箱个数不为空,显示信箱
-		if(listMailBox != null && !listMailBox.isEmpty()){
-			lvMailBox.setVisibility(View.VISIBLE);
-			lvMailBox.setAdapter(new MailBoxAdapter()) ;
-		}
+//		lvMailBox = (ListView) findViewById(R.id.listView_frag_get_mail_box) ;
+//		listMailBox = mApp.getLoginInfo().getListBox() ;
+//		//信箱个数不为空,显示信箱
+//		if(listMailBox != null && !listMailBox.isEmpty()){
+//			lvMailBox.setVisibility(View.VISIBLE);
+//			lvMailBox.setAdapter(new MailBoxAdapter()) ;
+//		}
 		//投递记录--隐藏寄件记录
 //		httpHelper.queryPostPackages(mApp.getUser(), mApp.getPassword(), 0, new HttpCallBack() {
 //			
@@ -306,69 +306,69 @@ public class GetPackageActivity extends Activity implements OnClickListener{
 		
 	}
 	
-	/**
-	 * 信箱适配器
-	 * @author mac
-	 *
-	 */
-	private class MailBoxAdapter extends BaseAdapter{
-
-		@Override
-		public int getCount() {
-			
-			return listMailBox.size();
-		}
-
-		@Override
-		public Object getItem(int position) {
-			
-			return listMailBox.get(position);
-		}
-
-		@Override
-		public long getItemId(int position) {
-			// TODO Auto-generated method stub
-			return position;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			ViewHolder holder = null ;
-			//填充数据
-			if(convertView == null){
-				holder = new ViewHolder() ;
-				convertView = LayoutInflater.from(GetPackageActivity.this).inflate(R.layout.listview_item_mail_box, null);
-				holder.tvBoxName = (TextView) convertView.findViewById(R.id.textView_listview_item_mail_box) ;
-				holder.btnOpen = (Button) convertView.findViewById(R.id.button_listview_item_mail_box) ;
-				convertView.setTag(holder);
-			}else{
-				holder = (ViewHolder) convertView.getTag() ;
-			}
-			holder.tvBoxName.setText(listMailBox.get(position).getMname()) ;
-			holder.btnOpen.setOnClickListener(new Myclick(position)) ;
-			return convertView;
-		}
-		
-		//用于临时存储数据
-		class ViewHolder {
-			TextView tvBoxName ;
-			Button btnOpen ;
-		}
-		//用于信箱开启
-		class Myclick implements OnClickListener{
-			int position ;
-			public Myclick(int position){
-				this.position = position ;
-			}
-			@Override
-			public void onClick(View v) {
-				//完成信箱开箱的操作
-				Log.e("item", "item---" + position) ;
-			}
-			
-		}
-		
-	}
+//	/**
+//	 * 信箱适配器
+//	 * @author mac
+//	 *
+//	 */
+//	private class MailBoxAdapter extends BaseAdapter{
+//
+//		@Override
+//		public int getCount() {
+//			
+//			return listMailBox.size();
+//		}
+//
+//		@Override
+//		public Object getItem(int position) {
+//			
+//			return listMailBox.get(position);
+//		}
+//
+//		@Override
+//		public long getItemId(int position) {
+//			// TODO Auto-generated method stub
+//			return position;
+//		}
+//
+//		@Override
+//		public View getView(int position, View convertView, ViewGroup parent) {
+//			ViewHolder holder = null ;
+//			//填充数据
+//			if(convertView == null){
+//				holder = new ViewHolder() ;
+//				convertView = LayoutInflater.from(GetPackageActivity.this).inflate(R.layout.listview_item_mail_box, null);
+//				holder.tvBoxName = (TextView) convertView.findViewById(R.id.textView_listview_item_mail_box) ;
+//				holder.btnOpen = (Button) convertView.findViewById(R.id.button_listview_item_mail_box) ;
+//				convertView.setTag(holder);
+//			}else{
+//				holder = (ViewHolder) convertView.getTag() ;
+//			}
+//			holder.tvBoxName.setText(listMailBox.get(position).getMname()) ;
+//			holder.btnOpen.setOnClickListener(new Myclick(position)) ;
+//			return convertView;
+//		}
+//		
+//		//用于临时存储数据
+//		class ViewHolder {
+//			TextView tvBoxName ;
+//			Button btnOpen ;
+//		}
+//		//用于信箱开启
+//		class Myclick implements OnClickListener{
+//			int position ;
+//			public Myclick(int position){
+//				this.position = position ;
+//			}
+//			@Override
+//			public void onClick(View v) {
+//				//完成信箱开箱的操作
+//				Log.e("item", "item---" + position) ;
+//			}
+//			
+//		}
+//		
+//	}
 	
 	
 	//广播接受者,用于刷新信息

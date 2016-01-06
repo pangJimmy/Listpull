@@ -31,9 +31,11 @@ import android.widget.Toast;
 
 import com.szzy.packages.R;
 import com.szzy.packages.activity.GetPackageActivity;
+import com.szzy.packages.activity.MailBoxActivity;
 import com.szzy.packages.activity.SearchPackageActivity;
 import com.szzy.packages.activity.UserPostActivity;
 import com.szzy.packages.adapter.HomeMenuGridAdapter;
+import com.szzy.packages.entity.MailBox;
 //主页
 public class HomeFragment extends Fragment implements OnClickListener{
 	private Context context ;
@@ -56,8 +58,8 @@ public class HomeFragment extends Fragment implements OnClickListener{
 	//图标显示顺序：附近、取件、寄件、投递、商店、互动
 	private int[] imgMenus = new int[]{ R.drawable.home_ic_get_package,
 			R.drawable.home_ic_user_post,
-			R.drawable.home_ic_shop,R.drawable.home_ic_hd}; //图标
-	private String[] strMenus = new String[] { "取件", "寄存",  "商店", "互动"};
+			R.drawable.home_ic_shop,R.drawable.home_ic_hd,R.drawable.home_ic_get_package,R.drawable.home_ic_user_post}; //图标
+	private String[] strMenus = new String[] { "取件", "寄存",  "商店", "互动","信箱", "展示柜"};
 	private List<Map<String, Object>> listMenu ;  //菜单项数据
 	private HomeMenuGridAdapter gridAdapter ;//首页菜单项适配器
 //	private String[] 
@@ -233,6 +235,13 @@ public class HomeFragment extends Fragment implements OnClickListener{
 		
 	}
 	
+	
+	private final String getPackage = "取件" ;
+	private final String userPost  = "寄存" ;
+	private final String shop = "商店" ;
+	private final String hudong = "互动" ;
+	private final String mailBox = "信箱" ;
+	private final String showBox = "展示柜";
 	/**
 	 * 菜单项点击事件监听
 	 * @author mac
@@ -245,33 +254,40 @@ public class HomeFragment extends Fragment implements OnClickListener{
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			switch (imgMenus[position]) {
-			case R.drawable.home_ic_fj://附近
-				tipsUnfinish() ;
-				break;
-			case R.drawable.home_ic_get_package://取件（用户和投递员都可以操作）
+			//strMenus = new String[] { "取件", "寄存",  "商店", "互动","信箱"};
+			switch (strMenus[position]) {
+//			case R.drawable.home_ic_fj://附近
+//				tipsUnfinish() ;
+//				break;
+			case getPackage://取件（用户和投递员都可以操作）
 				Intent iToGetPackage = new Intent(context, GetPackageActivity.class);
 				startActivity(iToGetPackage) ;
 				break;
-			case R.drawable.home_ic_user_post://业主寄件
+			case userPost://业主寄件
 				Intent iToUserPost = new Intent(context, UserPostActivity.class);
 				startActivity(iToUserPost) ;
 				break;
-			case R.drawable.home_ic_postor_post://投递
+//			case R.drawable.home_ic_postor_post://投递
 //				Intent itoPost = new Intent(context, PostInfoActivity.class);
 //				startActivity(itoPost) ;
-				tipsUnfinish() ;
-				break;
-			case R.drawable.home_ic_shop://购物
+//				tipsUnfinish() ;
+//				break;
+			case shop://购物
 				//发送广播
 				Intent toBraud = new Intent();
 				toBraud.setAction("toshop") ;
 				context.sendBroadcast(toBraud) ;
 				break;
-			case R.drawable.home_ic_hd://互动
+			case hudong://互动
 				tipsUnfinish();
 				break;
-
+			case mailBox://信箱
+				Intent toMailBox = new Intent(getActivity(), MailBoxActivity.class) ;
+				startActivity(toMailBox) ;
+				break;
+			case showBox://展示柜
+				
+				break ;
 			default:
 				break;
 			}

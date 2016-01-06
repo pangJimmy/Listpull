@@ -161,11 +161,15 @@ public class LoginActivity extends MBaseActivity {
 //					
 //				}
 //			});
+			//提示对话框
+			super.createProgressDialog("正在登陆中...") ;
 			//业主登录模式
 			httphelper.login(userStr, passwordStr, HttpHelper.LOGIN_MODE_USER, new HttpCallBack() {
 				
 				@Override
 				public void call(final Object obj, final String err) {
+					//关闭对话框
+					LoginActivity.super.closeDialog() ;
 					//需要在主线程中运行
 					mHandler.post(new Runnable() {
 
@@ -176,6 +180,7 @@ public class LoginActivity extends MBaseActivity {
 								mAppli.setLoginInfo((UserLoginInfo) obj) ;
 								mAppli.setUser(userStr);
 								mAppli.setPassword(passwordStr);
+								
 								//处理正确登录
 								Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 								startActivity(intent);
