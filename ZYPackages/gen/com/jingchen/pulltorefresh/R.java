@@ -34,23 +34,23 @@ public final class R {
 		public static final int refreshing = 0x7f020040;
 	}
 	public static final class id {
-		public static final int giv_anim = 0x7f0a0078;
-		public static final int head_view = 0x7f0a0077;
-		public static final int loading_icon = 0x7f0a009c;
-		public static final int loadmore_view = 0x7f0a009a;
-		public static final int loadstate_iv = 0x7f0a009e;
-		public static final int loadstate_tv = 0x7f0a009d;
-		public static final int pull_icon = 0x7f0a00a0;
-		public static final int pullup_icon = 0x7f0a009b;
-		public static final int refreshing_icon = 0x7f0a00a1;
-		public static final int state_iv = 0x7f0a00a3;
-		public static final int state_tv = 0x7f0a00a2;
+		public static final int giv_anim = 0x7f0a0079;
+		public static final int head_view = 0x7f0a0078;
+		public static final int loading_icon = 0x7f0a009e;
+		public static final int loadmore_view = 0x7f0a009c;
+		public static final int loadstate_iv = 0x7f0a00a0;
+		public static final int loadstate_tv = 0x7f0a009f;
+		public static final int pull_icon = 0x7f0a00a2;
+		public static final int pullup_icon = 0x7f0a009d;
+		public static final int refreshing_icon = 0x7f0a00a3;
+		public static final int state_iv = 0x7f0a00a5;
+		public static final int state_tv = 0x7f0a00a4;
 	}
 	public static final class layout {
-		public static final int gif_headview = 0x7f030018;
-		public static final int listview = 0x7f03001d;
-		public static final int load_more = 0x7f030022;
-		public static final int refresh_head = 0x7f030024;
+		public static final int gif_headview = 0x7f030019;
+		public static final int listview = 0x7f03001e;
+		public static final int load_more = 0x7f030023;
+		public static final int refresh_head = 0x7f030025;
 	}
 	public static final class string {
 		public static final int app_name = 0x7f080000;

@@ -57,7 +57,9 @@
     	<!-- 取件签收界面 -->
     	<activity android:name="com.szzy.packages.activity.GetPackageActivity"></activity> 
     	<!-- 信箱界面 -->
-    	<activity android:name="com.szzy.packages.activity.MailBoxActivity"></activity>     	     	  	
+    	<activity android:name="com.szzy.packages.activity.MailBoxActivity"></activity>   
+    	<!-- 展示柜界面 -->
+    	<activity android:name="com.szzy.packages.activity.ShowBoxActivity"></activity>   	     	  	
     </application>
 
 </manifest>

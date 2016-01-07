@@ -50,8 +50,6 @@ public class GetPackageActivity extends Activity implements OnClickListener{
 	private ListView listViewData;
 	private NotGetPackageListViewAdapter adapter;// listview适配器
 	
-//	private List<GetPackages> listNotGet = new ArrayList<GetPackages>();; // 未签收数据
-//	private List<GetPackages> listGet = new ArrayList<GetPackages>();// 以签收数据
 	
 	private HttpHelper httpHelper;
 	private MApplication mApp;
@@ -61,19 +59,13 @@ public class GetPackageActivity extends Activity implements OnClickListener{
 	
 	private PostPackageListViewAdapter postAdapter ;// 投件查询适配器
 	private NotGetPackageListViewAdapter getAdapter ;//取件查询适配器
-	private int mode = 2;// 1投件查询, 2取件查询
+	private int MODE_ALL = 0;// 查询所有，包括未取和已经取
 
 	private boolean first = true; // 是否首次进入程序
 
 	private MyReceiver mReceiver; // 广播接收者，用于更新取件后数据的刷新
 	private final int MSG_UPDATE = 1010 ;//更新listview信息
 	
-	/******-----分割线-----*******/
-//	//用于信箱开启
-//	private ListView lvMailBox ;
-//	//信箱个数
-//	private List<MailBox> listMailBox ;
-	/******-----分割线-----*******/
 	
 	private Handler mHandler = new Handler(){// 消息处理器，用于给出http错误提示
 		public void handleMessage(android.os.Message msg) {
@@ -81,7 +73,7 @@ public class GetPackageActivity extends Activity implements OnClickListener{
 			case MSG_UPDATE://更新listview信息
 				synchronized (listViewData) {
 					Toast.makeText(GetPackageActivity.this, "数据更新成功", 0).show();
-					if(mode == 1){
+					if(MODE_ALL == 1){
 						listViewData.setAdapter(postAdapter);
 					}else{
 						listViewData.setAdapter(getAdapter);
@@ -125,15 +117,16 @@ public class GetPackageActivity extends Activity implements OnClickListener{
 		ptrl = (PullToRefreshLayout) findViewById(R.id.listView_frag_get_data);
 		listViewData = (ListView) ptrl.getPullableView();
 		
-//		lvMailBox = (ListView) findViewById(R.id.listView_frag_get_mail_box) ;
-//		listMailBox = mApp.getLoginInfo().getListBox() ;
-//		//信箱个数不为空,显示信箱
-//		if(listMailBox != null && !listMailBox.isEmpty()){
-//			lvMailBox.setVisibility(View.VISIBLE);
-//			lvMailBox.setAdapter(new MailBoxAdapter()) ;
-//		}
-		//投递记录--隐藏寄件记录
-//		httpHelper.queryPostPackages(mApp.getUser(), mApp.getPassword(), 0, new HttpCallBack() {
+		//取件记录
+		httpHelper.queryUserGet(mApp.getUser(), mApp.getPassword(), MODE_ALL, new HttpCallBack() {
+			
+			@Override
+			public void call(Object obj, String err) {
+				
+				
+			}
+		});
+//		httpHelper.queryPackage(mApp.getUser(), mApp.getPassword(), 0, new HttpCallBack() {
 //			
 //			@Override
 //			public void call(Object obj, String err) {
@@ -142,49 +135,23 @@ public class GetPackageActivity extends Activity implements OnClickListener{
 //					TipsHttpError.toastError(mApp, err);
 //					return; 
 //				}
-////				notListPost = (List<PostPackages>) obj ;
-//				listPost = (List<PostPackages>) obj ;
-//				
+//				listGet = (List<GetPackages>) obj ;
 //				mHandler.post(new Runnable() {
 //
 //					@Override
 //					public void run() {
+//						ptrl.refreshFinish(PullToRefreshLayout.SUCCEED);
 //						//获取
-//						postAdapter = new PostPackageListViewAdapter(mApp, GetPackageActivity.this, listPost);
+//						getAdapter = new NotGetPackageListViewAdapter(mApp, GetPackageActivity.this, listGet);
+////						postAdapter = new PostPackageListViewAdapter(mApp, GetPackageActivity.this, listPost);
 //						Message msg = new Message() ;
 //						msg.what = MSG_UPDATE;
 //						mHandler.sendMessage(msg) ;
 //					}
 //				});
+//				
 //			}
 //		});
-		//取件记录
-		httpHelper.queryPackage(mApp.getUser(), mApp.getPassword(), 0, new HttpCallBack() {
-			
-			@Override
-			public void call(Object obj, String err) {
-				//错误返回
-				if(!"0".equals(err)){
-					TipsHttpError.toastError(mApp, err);
-					return; 
-				}
-				listGet = (List<GetPackages>) obj ;
-				mHandler.post(new Runnable() {
-
-					@Override
-					public void run() {
-						ptrl.refreshFinish(PullToRefreshLayout.SUCCEED);
-						//获取
-						getAdapter = new NotGetPackageListViewAdapter(mApp, GetPackageActivity.this, listGet);
-//						postAdapter = new PostPackageListViewAdapter(mApp, GetPackageActivity.this, listPost);
-						Message msg = new Message() ;
-						msg.what = MSG_UPDATE;
-						mHandler.sendMessage(msg) ;
-					}
-				});
-				
-			}
-		});
 		// 下拉监听
 		ptrl.setOnPullListener(new PullToRefreshLayout.OnPullListener() {
 
@@ -214,62 +181,62 @@ public class GetPackageActivity extends Activity implements OnClickListener{
 	
 	//发送http请求更新listview
 	private synchronized void sendHttp(){
-		if(mode == 1){
-			//投递记录
-			httpHelper.queryPostPackages(mApp.getUser(), mApp.getPassword(), 0, new HttpCallBack() {
-				
-				@Override
-				public void call(Object obj, String err) {
-					//错误返回
-					if(!"0".equals(err)){
-						TipsHttpError.toastError(mApp, err);
-						return; 
-					}
-//					notListPost = (List<PostPackages>) obj ;
-					listPost = (List<PostPackages>) obj ;
-					
-					mHandler.post(new Runnable() {
-
-						@Override
-						public void run() {
-							ptrl.refreshFinish(PullToRefreshLayout.SUCCEED);
-							//获取
-							postAdapter = new PostPackageListViewAdapter(mApp, GetPackageActivity.this, listPost);
-							Message msg = new Message() ;
-							msg.what = MSG_UPDATE;
-							mHandler.sendMessage(msg) ;
-						}
-					});
-				}
-			});
-		}else{
-			//取件记录
-			httpHelper.queryPackage(mApp.getUser(), mApp.getPassword(), 0, new HttpCallBack() {
-				
-				@Override
-				public void call(Object obj, String err) {
-					//错误返回
-					if(!"0".equals(err)){
-						TipsHttpError.toastError(mApp, err);
-						return; 
-					}
-					listGet = (List<GetPackages>) obj ;
-					mHandler.post(new Runnable() {
-
-						@Override
-						public void run() {
-							ptrl.refreshFinish(PullToRefreshLayout.SUCCEED);
-							//获取
-							getAdapter = new NotGetPackageListViewAdapter(mApp, GetPackageActivity.this, listGet);
+//		if(MODE_ALL == 1){
+//			//投递记录
+//			httpHelper.queryPostPackages(mApp.getUser(), mApp.getPassword(), 0, new HttpCallBack() {
+//				
+//				@Override
+//				public void call(Object obj, String err) {
+//					//错误返回
+//					if(!"0".equals(err)){
+//						TipsHttpError.toastError(mApp, err);
+//						return; 
+//					}
+////					notListPost = (List<PostPackages>) obj ;
+//					listPost = (List<PostPackages>) obj ;
+//					
+//					mHandler.post(new Runnable() {
+//
+//						@Override
+//						public void run() {
+//							ptrl.refreshFinish(PullToRefreshLayout.SUCCEED);
+//							//获取
 //							postAdapter = new PostPackageListViewAdapter(mApp, GetPackageActivity.this, listPost);
-							Message msg = new Message() ;
-							msg.what = MSG_UPDATE;
-							mHandler.sendMessage(msg) ;
-						}
-					});
-				}
-			});
-		}
+//							Message msg = new Message() ;
+//							msg.what = MSG_UPDATE;
+//							mHandler.sendMessage(msg) ;
+//						}
+//					});
+//				}
+//			});
+//		}else{
+//			//取件记录
+//			httpHelper.queryPackage(mApp.getUser(), mApp.getPassword(), 0, new HttpCallBack() {
+//				
+//				@Override
+//				public void call(Object obj, String err) {
+//					//错误返回
+//					if(!"0".equals(err)){
+//						TipsHttpError.toastError(mApp, err);
+//						return; 
+//					}
+//					listGet = (List<GetPackages>) obj ;
+//					mHandler.post(new Runnable() {
+//
+//						@Override
+//						public void run() {
+//							ptrl.refreshFinish(PullToRefreshLayout.SUCCEED);
+//							//获取
+//							getAdapter = new NotGetPackageListViewAdapter(mApp, GetPackageActivity.this, listGet);
+////							postAdapter = new PostPackageListViewAdapter(mApp, GetPackageActivity.this, listPost);
+//							Message msg = new Message() ;
+//							msg.what = MSG_UPDATE;
+//							mHandler.sendMessage(msg) ;
+//						}
+//					});
+//				}
+//			});
+//		}
 	}
 	
 	@Override
@@ -294,7 +261,7 @@ public class GetPackageActivity extends Activity implements OnClickListener{
 					.getColor(R.color.title_bg));
 			tvTitleRecvBar.setBackgroundColor(this.getResources().getColor(
 					R.color.title_font_bg));
-			mode = 2;
+//			MODE_ALL = 2;
 			// listData = listGet ;
 			getAdapter = new NotGetPackageListViewAdapter(mApp, this, listGet);
 			listViewData.setAdapter(getAdapter);

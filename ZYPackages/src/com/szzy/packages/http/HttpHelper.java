@@ -88,6 +88,12 @@ public class HttpHelper {
 	private final int CMD_HTTP_USER_REQUEST = 13 ;
 	/**用户寄存记录查询**/
 	private final int CMD_HTTP_USER_POST_REQUEST = 14 ;
+	/**快递投递保存**/
+	private final int CMD_HTTP_POSTER_POST_SAVE = 16 ;
+	/**寄存投递保存**/
+	private final int CMD_HTTP_USER_POST_SAVE = 17 ;
+	/**获取箱门信息**/
+	private final int CMD_HTTP_GET_BOX_INFO = 18 ;
 	
 	
 	
@@ -295,6 +301,7 @@ public class HttpHelper {
 						String strResult = EntityUtils.toString(response.getEntity(),"UTF-8");
 						if(strResult != null){
 							LogInfo("postMail  strResult = ", strResult) ;
+							callback.call(null, HttpUtil.getError(strResult));
 							return ;
 						}
 					}
@@ -546,7 +553,7 @@ public class HttpHelper {
 						String strResult = EntityUtils.toString(response.getEntity(),"UTF-8");
 						if(strResult != null){
 							LogInfo("queryUserGet  strResult = ", strResult) ;
-							
+							callback.call(HttpUtil.resolveUserGet(strResult), HttpUtil.getError(strResult));
 							 return ;
 						}
 					}
@@ -604,7 +611,126 @@ public class HttpHelper {
 		 return null ;
 	 }
 	 
+	 /**
+	  * 快递投递保存，快递员在确认投递时发送给服务器
+	  * @param user
+	  * @param password
+	  * @param systemid
+	  * @param callback
+	  */
+	 public void savePosterPost(final String user, final String password,final String systemid , final HttpCallBack callback){
+		 executorService.submit(new Runnable() {
+			@Override
+			public void run() {
+				try{
+					HttpClient client = new DefaultHttpClient();
+					HttpGet httpget = new HttpGet();
+					String request = BASE_URI + "?CMD=" + CMD_HTTP_POSTER_POST_SAVE+"&username=" + user + 
+							"&userpass=" + password + "&systemid=" + systemid ;
+					LogInfo("queryUserGet  request = ", request) ;
+					httpget.setURI(new URI(request));
+					//设置连接超时为5S
+					client.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 5000);
+					HttpResponse response = client.execute(httpget);
+					if(response.getStatusLine().getStatusCode() == 200){
+						String strResult = EntityUtils.toString(response.getEntity(),"UTF-8");
+						if(strResult != null){
+							LogInfo("savePosterPost  strResult = ", strResult) ;
+							callback.call(null, HttpUtil.getError(strResult));
+							 return ;
+						}
+					}
+					//其他错误
+					callback.call(null, TipsHttpError.ERROR_UNKNOW);
+				}catch(Exception exception){
+					Log.e("", exception.toString());
+					//网络超时或者网络连接出错
+					callback.call(null, TipsHttpError.ERROR_NETWORK);
+				}
+			}
+		});  
+	 }
 	 
+	 /**
+	  * 寄存投递保存
+	  * @param user
+	  * @param password
+	  * @param systemid
+	  * @param callback
+	  */
+	 public void saveUserPost(final String user, final String password,final String systemid , final HttpCallBack callback){
+		 executorService.submit(new Runnable() {
+				@Override
+				public void run() {
+					try{
+						HttpClient client = new DefaultHttpClient();
+						HttpGet httpget = new HttpGet();
+						String request = BASE_URI + "?CMD=" + CMD_HTTP_USER_POST_SAVE+"&username=" + user + 
+								"&userpass=" + password + "&systemid=" + systemid ;
+						LogInfo("queryUserGet  request = ", request) ;
+						httpget.setURI(new URI(request));
+						//设置连接超时为5S
+						client.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 5000);
+						HttpResponse response = client.execute(httpget);
+						if(response.getStatusLine().getStatusCode() == 200){
+							String strResult = EntityUtils.toString(response.getEntity(),"UTF-8");
+							if(strResult != null){
+								LogInfo("savePosterPost  strResult = ", strResult) ;
+								callback.call(null, HttpUtil.getError(strResult));
+								 return ;
+							}
+						}
+						//其他错误
+						callback.call(null, TipsHttpError.ERROR_UNKNOW);
+					}catch(Exception exception){
+						Log.e("", exception.toString());
+						//网络超时或者网络连接出错
+						callback.call(null, TipsHttpError.ERROR_NETWORK);
+					}
+				}
+			});
+	 }
+	 
+	 /**
+	  * 获取箱门信息
+	  * @param user
+	  * @param password
+	  * @param ecode  箱柜上的二维码
+	  * @param callback
+	  */
+	 public void getBoxInfo(final String user, final String password,final String ecode , final HttpCallBack callback) {
+		 executorService.submit(new Runnable() {
+				@Override
+				public void run() {
+					try{
+						HttpClient client = new DefaultHttpClient();
+						HttpGet httpget = new HttpGet();
+						String request = BASE_URI + "?CMD=" + CMD_HTTP_GET_BOX_INFO+"&username=" + user + 
+								"&userpass=" + password + "&ecode=" + ecode ;
+						LogInfo("queryUserGet  request = ", request) ;
+						httpget.setURI(new URI(request));
+						//设置连接超时为5S
+						client.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 5000);
+						HttpResponse response = client.execute(httpget);
+						if(response.getStatusLine().getStatusCode() == 200){
+							String strResult = EntityUtils.toString(response.getEntity(),"UTF-8");
+							if(strResult != null){
+								LogInfo("savePosterPost  strResult = ", strResult) ;
+								//回调，返回箱门信息
+								callback.call(null, HttpUtil.getError(strResult));
+								 return ;
+							}
+						}
+						//其他错误
+						callback.call(null, TipsHttpError.ERROR_UNKNOW);
+					}catch(Exception exception){
+						Log.e("", exception.toString());
+						//网络超时或者网络连接出错
+						callback.call(null, TipsHttpError.ERROR_NETWORK);
+					}
+				}
+			});
+	 }
 	 
 /**********--------------------------分割线-----------------------------*************/	 
 	 /**

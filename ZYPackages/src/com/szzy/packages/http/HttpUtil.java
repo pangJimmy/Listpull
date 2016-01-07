@@ -8,8 +8,12 @@ import com.szzy.packages.entity.GetPackages;
 import com.szzy.packages.entity.MailBox;
 import com.szzy.packages.entity.PostBoxInfo;
 import com.szzy.packages.entity.PostPackages;
+import com.szzy.packages.entity.PosterPostRecord;
+import com.szzy.packages.entity.ShowBox;
+import com.szzy.packages.entity.UserGetRecord;
 import com.szzy.packages.entity.UserInfo;
 import com.szzy.packages.entity.UserLoginInfo;
+import com.szzy.packages.entity.UserPostRecord;
 
 public class HttpUtil {
 	
@@ -35,7 +39,9 @@ public class HttpUtil {
 		String spid = null ;
 		String state = null; 
 		String mailBoxNum = null; 
+		String showBoxNum = null ;
 		List<MailBox> listBox = null; 
+		List<ShowBox> listShowBox = null ;
 		String rex0 = "err=0" ;
 		if(response.startsWith(rex0)){
 			info = new UserLoginInfo() ;
@@ -59,7 +65,6 @@ public class HttpUtil {
 			rex0 = rex0 + "mailboxnum=" + mailBoxNum + "&";
 			//箱子数量大于0
 			if(mailBoxNum != null && mailBoxNum.length() > 0){
-				int rows = Integer.valueOf(mailBoxNum) ;
 				String[] row = response.replaceAll(rex0, "")
 				.replaceAll("show.*", "")
 				.split("mecode");
@@ -80,11 +85,181 @@ public class HttpUtil {
 					info.setListBox(listBox);
 					
 				}
-//				String rex0 = "err=0&spid=" + spid + "&state=" + state
 			}
 			
 		}
+		//解析展示柜数量
+		showBoxNum = response.replaceAll(".*showboxnum\\=", "")
+				.replaceAll("\\&.*", "");
+		if(showBoxNum != null && showBoxNum.length() > 0){
+			String[] showRow = response.replaceAll(".*showboxnum\\=" + showBoxNum + "\\&", "")
+					.split("mecode");
+			String[] itemShowRows = null;
+			if(showRow != null && showRow.length > 0){
+				listShowBox = new ArrayList<ShowBox>() ;
+				for(int i = 0; i < showRow.length; i++){
+					itemShowRows = showRow[i].split("\\&");
+					if(itemShowRows != null && itemShowRows.length == 3){//3个字段
+						String rex1 = ".*\\=";
+						ShowBox showBox = new ShowBox() ;
+						showBox.setMecode(itemShowRows[0].replaceAll(rex1, ""));
+						showBox.setMbcode(itemShowRows[1].replaceAll(rex1, ""));
+						showBox.setMname(itemShowRows[2].replaceAll(rex1, "")) ;
+						listShowBox.add(showBox);
+					}
+				}
+				info.setListShowBox(listShowBox);
+				
+			}
+		}
 		return info ;
+	}
+	
+
+	/**
+	 * 解析投递员投递记录 systemid:系统记录编号 begtime:存放时间 ename:柜名称 bname:箱名称
+	 * getuserphone:取件人手机号 order:订单编号 ， 可空 endtime:取件时间，可空 getstyle:取件凡是，(未取是0)
+	 * state:寄存状态(0未取，1已取)
+	 * 
+	 * @param resp
+	 * @return
+	 */
+	public static List<PosterPostRecord> resolvePosterRecord(String response) {
+		List<PosterPostRecord> listRecord = null;
+		String rex0 = "err=0";
+		if (response.startsWith(rex0)) {
+			listRecord = new ArrayList<PosterPostRecord>();
+			rex0 += "&";
+			String rows = response.replaceAll(rex0, "")// 获取行数
+					.replaceAll("\\&.*", "").replaceAll("rows=", "");
+			// 当行数
+			if (rows != null && rows.length() > 0) {
+				rex0 += "rows=" + rows + "&";
+				int rowInt = Integer.valueOf(rows);
+				String[] row = response.replaceAll(rex0, "").split("systemid");
+				String[] itemRows = null;
+				for (int i = 0; i < row.length; i++) {
+					itemRows = row[i].split("\\&");
+					if (itemRows != null && itemRows.length == 9) {// 9个字段
+						String rex1 = ".*\\=";
+						PosterPostRecord record = new PosterPostRecord();
+						record.setSystemid(itemRows[0].replaceAll(rex1, ""));
+						record.setBegtime(itemRows[1].replaceAll(rex1, ""));
+						record.setEname(itemRows[2].replaceAll(rex1, ""));
+						record.setBname(itemRows[3].replaceAll(rex1, ""));
+						record.setGetuserphone(itemRows[4].replaceAll(rex1, ""));
+						record.setOrder(itemRows[5].replaceAll(rex1, ""));
+						record.setEndtime(itemRows[6].replaceAll(rex1, ""));
+						record.setGetstyle(itemRows[7].replaceAll(rex1, ""));
+						record.setState(itemRows[8].replaceAll(rex1, ""));
+						listRecord.add(record);
+					}
+				}
+			}
+		}
+		return listRecord;
+	}
+
+	/**
+	 * 用户取件记录查询 
+	 * rows:记录总条数 
+	 * systemid:系统记录编号 
+	 * begtime:存放时间 
+	 * ename:柜名称 
+	 * bname:箱名称
+	 * postman:取件人手机号 
+	 * order:订单编号 ， 可空 
+	 * endtime:取件时间，可空 
+	 * getstyle:取件凡是，(未取是0)
+	 * state:寄存状态(0未取，1已取)
+	 * 
+	 * @param response
+	 * @return
+	 */
+	public static List<UserGetRecord> resolveUserGet(String response) {
+		List<UserGetRecord> listRecord = null;
+		String rex0 = "err=0";
+		if (response.startsWith(rex0)) {
+			listRecord = new ArrayList<UserGetRecord>();
+			rex0 += "&";
+			String rows = response.replaceAll(rex0, "")// 获取行数
+					.replaceAll("\\&.*", "").replaceAll("rows=", "");
+			// 当行数
+			if (rows != null && rows.length() > 0) {
+				rex0 += "rows=" + rows + "&";
+				int rowInt = Integer.valueOf(rows);
+				String[] row = response.replaceAll(rex0, "").split("systemid");
+				String[] itemRows = null;
+				for (int i = 0; i < row.length; i++) {
+					itemRows = row[i].split("\\&");
+					if (itemRows != null && itemRows.length == 9) {// 9个字段
+						String rex1 = ".*\\=";
+						UserGetRecord record = new UserGetRecord();
+						record.setSystemid(itemRows[0].replaceAll(rex1, ""));
+						record.setBegtime(itemRows[1].replaceAll(rex1, ""));
+						record.setEname(itemRows[2].replaceAll(rex1, ""));
+						record.setBname(itemRows[3].replaceAll(rex1, ""));
+						record.setPostman(itemRows[4].replaceAll(rex1, ""));
+						record.setOrder(itemRows[5].replaceAll(rex1, ""));
+						record.setEndtime(itemRows[6].replaceAll(rex1, ""));
+						record.setGetstyle(itemRows[7].replaceAll(rex1, ""));
+						record.setState(itemRows[8].replaceAll(rex1, ""));
+						listRecord.add(record);
+					}
+				}
+			}
+		}
+		return listRecord;
+	}
+	
+	/**
+	 * 用户取件记录查询 
+	 * rows:记录总条数 
+	 * systemid:系统记录编号 
+	 * begtime:存放时间 
+	 * ename:柜名称 
+	 * bname:箱名称
+	 * setman:寄存人
+	 * getman:取件人
+	 * endtime:取件时间，可空 
+	 * state:寄存状态(0未取，1已取)
+	 * 
+	 * @param response
+	 * @return
+	 */
+	public static List<UserPostRecord> resolveUserPostRecord(String response){
+		List<UserPostRecord> listRecord = null;
+		String rex0 = "err=0";
+		if (response.startsWith(rex0)) {
+			listRecord = new ArrayList<UserPostRecord>();
+			rex0 += "&";
+			String rows = response.replaceAll(rex0, "")// 获取行数
+					.replaceAll("\\&.*", "").replaceAll("rows=", "");
+			// 当行数
+			if (rows != null && rows.length() > 0) {
+				rex0 += "rows=" + rows + "&";
+				int rowInt = Integer.valueOf(rows);
+				String[] row = response.replaceAll(rex0, "").split("systemid");
+				String[] itemRows = null;
+				for (int i = 0; i < row.length; i++) {
+					itemRows = row[i].split("\\&");
+					if (itemRows != null && itemRows.length == 8) {// 8个字段
+						String rex1 = ".*\\=";
+						UserPostRecord record = new UserPostRecord();
+						record.setSystemid(itemRows[0].replaceAll(rex1, ""));
+						record.setBegtime(itemRows[1].replaceAll(rex1, ""));
+						record.setEname(itemRows[2].replaceAll(rex1, ""));
+						record.setBname(itemRows[3].replaceAll(rex1, ""));
+						record.setSetman(itemRows[4].replaceAll(rex1, ""));
+						record.setGetman(itemRows[5].replaceAll(rex1, ""));
+						record.setEndtime(itemRows[6].replaceAll(rex1, ""));
+						record.setState(itemRows[7].replaceAll(rex1, ""));
+						listRecord.add(record);
+					}
+				}
+			}
+		}
+		return listRecord;
 	}
 	
 	/*******-----------------分割线------------------********/

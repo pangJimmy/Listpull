@@ -33,6 +33,7 @@ import com.szzy.packages.R;
 import com.szzy.packages.activity.GetPackageActivity;
 import com.szzy.packages.activity.MailBoxActivity;
 import com.szzy.packages.activity.SearchPackageActivity;
+import com.szzy.packages.activity.ShowBoxActivity;
 import com.szzy.packages.activity.UserPostActivity;
 import com.szzy.packages.adapter.HomeMenuGridAdapter;
 import com.szzy.packages.entity.MailBox;
@@ -286,7 +287,8 @@ public class HomeFragment extends Fragment implements OnClickListener{
 				startActivity(toMailBox) ;
 				break;
 			case showBox://Õ¹Ê¾¹ñ
-				
+				Intent toShowBox = new Intent(getActivity(), ShowBoxActivity.class) ;
+				startActivity(toShowBox) ;
 				break ;
 			default:
 				break;
