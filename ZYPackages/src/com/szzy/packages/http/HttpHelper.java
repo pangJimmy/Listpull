@@ -387,7 +387,7 @@ public class HttpHelper {
 						String strResult = EntityUtils.toString(response.getEntity(),"UTF-8");
 						if(strResult != null){
 							LogInfo("getExpress  strResult = ", strResult) ;
-							
+							callback.call(null, TipsHttpError.OK);
 							 return ;
 						}
 					}

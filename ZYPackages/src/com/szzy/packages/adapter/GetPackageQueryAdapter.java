@@ -148,9 +148,23 @@ public class GetPackageQueryAdapter extends BaseAdapter {
 						Integer.valueOf(TipsHttpError.GET_PACKAGER_MODE_NORMAL), new HttpCallBack(){
 
 							@Override
-							public void call(Object obj, String err) {
+							public void call(Object obj, final String err) {
 								//返回开箱结果
-								
+								mHandler.post(new Runnable() {
+									
+									@Override
+									public void run() {
+										if(err.equals(TipsHttpError.OK)){
+											//发送广播
+											Intent intent = new Intent();
+											intent.setAction("update");
+											context.sendBroadcast(intent);
+										}else{
+											TipsHttpError.toastError(mApp, err);
+										}
+										
+									}
+								});
 								
 							}
 				

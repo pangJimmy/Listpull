@@ -219,7 +219,7 @@ public class GetPackageActivity extends Activity implements OnClickListener{
 		public void onReceive(Context context, Intent intent) {
 			Log.e("onReceive", "onReceive");
 			// 刷新投递信息
-			sendHttp() ;
+			refreshRecord();
 		}
 
 	}
