@@ -9,7 +9,7 @@ import com.szzy.packages.activity.MApplication;
 import com.szzy.packages.activity.MipcaActivityCapture;
 import com.szzy.packages.activity.PostInfoActivity;
 import com.szzy.packages.adapter.NotGetPackageListViewAdapter;
-import com.szzy.packages.adapter.PostPackageListViewAdapter;
+import com.szzy.packages.adapter.GetPackageQueryAdapter;
 import com.szzy.packages.entity.GetPackages;
 import com.szzy.packages.entity.PostPackages;
 import com.szzy.packages.http.HttpCallBack;
@@ -63,7 +63,7 @@ public class PostFragment extends Fragment implements OnClickListener {
 	private List<PostPackages> notListPost = new ArrayList<PostPackages>();// 未签收
 	private List<PostPackages> listPost = new ArrayList<PostPackages>();
 	private List<PostPackages> listData = new ArrayList<PostPackages>();
-	PostPackageListViewAdapter adapter;// 适配器
+	GetPackageQueryAdapter adapter;// 适配器
 
 	private Handler mHandler = new Handler();
 	private MyReceiver myReceiver;// 广播接受者，用于接收刷新信息
@@ -107,9 +107,9 @@ public class PostFragment extends Fragment implements OnClickListener {
 		ptrl = (PullToRefreshLayout) rootView.findViewById(R.id.listView_frag_post_data);
 		mListView = (ListView) ptrl.getPullableView();
 		if(mode == 1){
-			adapter = new PostPackageListViewAdapter(mApp,context, notListPost);
+//			adapter = new PostPackageListViewAdapter(mApp,context, notListPost);
 		}else{
-			adapter = new PostPackageListViewAdapter(mApp,context, listPost);
+//			adapter = new PostPackageListViewAdapter(mApp,context, listPost);
 		}
 		ptrl.setOnPullListener(new PullToRefreshLayout.OnPullListener() {
 			
@@ -160,13 +160,13 @@ public class PostFragment extends Fragment implements OnClickListener {
 									.show();
 //							adapter = new PostPackageListViewAdapter(
 //									mApp, context, listData);
-							if(mode == 1){
-								adapter = new PostPackageListViewAdapter(
-										mApp, context, notListPost);
-							}else{
-								adapter = new PostPackageListViewAdapter(
-										mApp, context, listPost);
-							}
+//							if(mode == 1){
+//								adapter = new PostPackageListViewAdapter(
+//										mApp, context, notListPost);
+//							}else{
+//								adapter = new PostPackageListViewAdapter(
+//										mApp, context, listPost);
+//							}
 							mListView.setAdapter(adapter);
 							//结束刷新
 							ptrl.refreshFinish(PullToRefreshLayout.SUCCEED);
@@ -217,8 +217,8 @@ public class PostFragment extends Fragment implements OnClickListener {
 
 						@Override
 						public void run() {
-							adapter = new PostPackageListViewAdapter(mApp,
-									context, notListPost);
+//							adapter = new PostPackageListViewAdapter(mApp,
+//									context, notListPost);
 							mListView.setAdapter(adapter);
 						}
 					});
@@ -292,7 +292,7 @@ public class PostFragment extends Fragment implements OnClickListener {
 					.getColor(R.color.title_font_bg));
 			tvTitleRecvBar.setBackgroundColor(context.getResources().getColor(
 					R.color.title_bg));
-			adapter = new PostPackageListViewAdapter(mApp,context, notListPost);
+//			adapter = new PostPackageListViewAdapter(mApp,context, notListPost);
 			mListView.setAdapter(adapter);
 		}else{
 			tvTitleNotRecvBar.setBackgroundColor(context.getResources()
@@ -315,7 +315,7 @@ public class PostFragment extends Fragment implements OnClickListener {
 					R.color.title_bg));
 			mode = 1;
 			listData = notListPost;
-			adapter = new PostPackageListViewAdapter(mApp, context, notListPost);
+//			adapter = new PostPackageListViewAdapter(mApp, context, notListPost);
 			mListView.setAdapter(adapter);
 			break;
 		case R.id.textView_post_received://已签收标签
@@ -325,7 +325,7 @@ public class PostFragment extends Fragment implements OnClickListener {
 					R.color.title_font_bg));
 			mode = 2;
 			listData = listPost;
-			adapter = new PostPackageListViewAdapter(mApp, context, listPost);
+//			adapter = new PostPackageListViewAdapter(mApp, context, listPost);
 			mListView.setAdapter(adapter);
 			break;
 		case R.id.img_frag_saoyisao://投件
@@ -364,8 +364,8 @@ public class PostFragment extends Fragment implements OnClickListener {
 									|| notListPost.isEmpty()) {
 								notListPost = new ArrayList<PostPackages>();
 							}
-							adapter = new PostPackageListViewAdapter(
-									mApp, getActivity(), notListPost);
+//							adapter = new PostPackageListViewAdapter(
+//									mApp, getActivity(), notListPost);
 							mListView.setAdapter(adapter);
 						}
 					});

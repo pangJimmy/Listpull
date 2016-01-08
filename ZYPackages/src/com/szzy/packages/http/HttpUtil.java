@@ -183,11 +183,11 @@ public class HttpUtil {
 			listRecord = new ArrayList<UserGetRecord>();
 			rex0 += "&";
 			String rows = response.replaceAll(rex0, "")// 获取行数
-					.replaceAll("\\&.*", "").replaceAll("rows=", "");
+					.replaceAll("\\&.*", "").replaceAll("row=", "");
 			// 当行数
 			if (rows != null && rows.length() > 0) {
 				rex0 += "rows=" + rows + "&";
-				int rowInt = Integer.valueOf(rows);
+//				int rowInt = Integer.valueOf(rows);
 				String[] row = response.replaceAll(rex0, "").split("systemid");
 				String[] itemRows = null;
 				for (int i = 0; i < row.length; i++) {

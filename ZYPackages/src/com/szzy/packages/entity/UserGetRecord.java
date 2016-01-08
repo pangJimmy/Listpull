@@ -1,5 +1,9 @@
 package com.szzy.packages.entity;
 
+import java.io.UnsupportedEncodingException;
+
+import com.szzy.packages.tool.Tools;
+
 /**
  * private String 用户取件记录 private String @author mac
  * 
@@ -10,7 +14,7 @@ public class UserGetRecord {
 	private String begtime;; // 存放时间
 	private String ename;; // 柜名称
 	private String bname;; // 箱名称
-	private String postman;; // 取件人手机号
+	private String postman;; // 投递员
 	private String order;; // 订单编号 ， 可空
 	private String endtime;; // 取件时间，可空
 	private String getstyle;; // 取件凡是，(未取是0)
@@ -37,7 +41,17 @@ public class UserGetRecord {
 	}
 
 	public void setEname(String ename) {
-		this.ename = ename;
+		if(ename != null && ename.length() > 0){
+			byte[] enameByte = Tools.HexString2Bytes(ename);
+			try {
+				this.ename = new String(enameByte, "gbk");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else{
+			this.ename = "" ;
+		}
 	}
 
 	public String getBname() {

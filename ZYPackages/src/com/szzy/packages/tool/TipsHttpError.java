@@ -60,6 +60,16 @@ public class TipsHttpError {
 	public static final String ERROR_UNKNOW = "255";  //未知错误;
 	public static final String ERROR_NETWORK = "256";  //网络连接出错
 	
+	/***取件状态：未取***/
+	public static final String PACKAGER_STATE_NOT_GET = "1"; //未取
+	/***取件状态：已取***/
+	public static final String PACKAGER_STATE_GET = "2"; //已取
+	/***取件方式：收件人正常取件***/
+	public static final String GET_PACKAGER_MODE_NORMAL = "2"; 
+	/***取件方式：投件人超时取件***/
+	public static final String GET_PACKAGER_MODE_TIMEOUT = "2"; 
+	
+	
 	private static Map<String, String> map1 = new HashMap<String, String>();
 	static{
 		
@@ -131,6 +141,10 @@ public class TipsHttpError {
 				if(map1.containsKey(errorCode)){
 					msg = "err=" + errorCode + map1.get(errorCode);
 				}else{
+					//正确返回不做处理
+					if(errorCode.equals(OK)){
+						return ;
+					}
 					msg = "err=" + errorCode + "未知错误";
 				}
 //				switch (errorCode) {

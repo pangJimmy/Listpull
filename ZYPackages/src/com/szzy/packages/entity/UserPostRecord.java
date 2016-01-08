@@ -1,4 +1,7 @@
 package com.szzy.packages.entity;
+
+import com.szzy.packages.tool.Tools;
+
 /**
  * ÓÃ»§¼Ä´æ¼ÇÂ¼
  * 	 
@@ -36,10 +39,16 @@ public class UserPostRecord {
 		this.begtime = begtime;
 	}
 	public String getEname() {
+		
 		return ename;
 	}
 	public void setEname(String ename) {
-		this.ename = ename;
+		if(ename != null && ename.length() > 0){
+			byte[] enameByte = Tools.HexString2Bytes(ename);
+			this.ename = new String(enameByte);
+		}else{
+			this.ename = "" ;
+		}
 	}
 	public String getBname() {
 		return bname;

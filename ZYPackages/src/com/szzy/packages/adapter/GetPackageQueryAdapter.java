@@ -22,22 +22,25 @@ import android.widget.Toast;
 import com.szzy.packages.R;
 import com.szzy.packages.activity.MApplication;
 import com.szzy.packages.entity.PostPackages;
+import com.szzy.packages.entity.UserGetRecord;
+import com.szzy.packages.http.HttpCallBack;
 import com.szzy.packages.http.HttpHelper;
 import com.szzy.packages.http.OpenBoxCall;
+import com.szzy.packages.tool.TipsHttpError;
 
-public class PostPackageListViewAdapter extends BaseAdapter {
+public class GetPackageQueryAdapter extends BaseAdapter {
 
 	private LayoutInflater inflater ;//注入器
-	private List<PostPackages> listPackages ;
-	
+//	private List<PostPackages> listPackages ;
+	private List<UserGetRecord> listRecord ;//用listRecord代替listPackages
 	private Context context ;
 	private MApplication mApp ;
 	private HttpHelper httpHelper ;
 	private Handler mHandler = new Handler();
 	
-	public PostPackageListViewAdapter(MApplication mApp, Context context,List<PostPackages> listPost){
+	public GetPackageQueryAdapter(MApplication mApp, Context context,List<UserGetRecord> listPost){
 		inflater = LayoutInflater.from(context);
-		this.listPackages = listPost ;
+		this.listRecord = listPost ;
 		this.context = context ;
 		this.mApp = mApp;
 		httpHelper = new HttpHelper();
@@ -46,13 +49,13 @@ public class PostPackageListViewAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return listPackages.size();
+		return listRecord.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return listPackages.get(position);
+		return listRecord.get(position);
 	}
 
 	@Override
@@ -76,29 +79,41 @@ public class PostPackageListViewAdapter extends BaseAdapter {
 			holder.tvBoxid = (TextView) convertView.findViewById(R.id.textView_listview_item_post_boxid);
 			holder.tvGetTime = (TextView) convertView.findViewById(R.id.textView_listview_item_post_gettime);
 			holder.tvTel = (TextView) convertView.findViewById(R.id.textView_listview_item_post_tel);
+			holder.tvPoster = (TextView) convertView.findViewById(R.id.textView_listview_item_post_poster);
 			holder.btnGet = (Button) convertView.findViewById(R.id.button_listview_item_post_get_package);
 			convertView.setTag(holder);
 		}else{
 			holder = (ViewHolder) convertView.getTag();
 		}
-		//将数据填入item
-		if(listPackages.get(position).getState().trim().equals("0")){
+		 String begtime = listRecord.get(position).getBegtime(); // 存放时间
+		 String ename = listRecord.get(position).getEname(); // 柜名称
+		 String bname = listRecord.get(position).getBname(); // 箱名称
+		 String postman = listRecord.get(position).getPostman(); // 取件人手机号
+		 String order = listRecord.get(position).getOrder(); // 订单编号 ， 可空
+		 String endtime = listRecord.get(position).getEndtime(); // 取件时间，可空
+		 String getstyle = listRecord.get(position).getGetstyle(); // 取件凡是，(未取是0)
+		 String state = listRecord.get(position).getState(); // 寄存状态(0未取，1已取)
+		//将数据填入item, PACKAGER_STATE_NOT_GET包裹状态未取
+		if(state != null && state.equals(TipsHttpError.PACKAGER_STATE_NOT_GET)){
 			holder.tvState.setText("未签收");
-			holder.tvOrder.setText(listPackages.get(position).getOrderNo());
-			holder.tvPostDate.setText(listPackages.get(position).getTime());
-			holder.tvAddress.setText(listPackages.get(position).getAddress());
-			holder.tvTel.setText(listPackages.get(position).getuTel());
-			holder.tvBoxid.setText("箱号：" + listPackages.get(position).getBoxName());
+			holder.tvOrder.setText(order);
+			holder.tvPostDate.setText(begtime);
+			holder.tvAddress.setText(ename);
+			holder.tvTel.setText(postman);
+			holder.tvBoxid.setText("箱号：" + bname);
+			holder.tvPoster.setText(postman);
 			holder.btnGet.setVisibility(View.VISIBLE);
+			holder.tvGetTime.setVisibility(View.GONE) ;
 			holder.btnGet.setOnClickListener(new MyonClick(position));
-		}else{
+		}else if(state != null){
 			holder.tvState.setText("已签收");
-			holder.tvBoxid.setText("箱号：" + listPackages.get(position).getBoxName());
-			holder.tvGetTime.setText(listPackages.get(position).getGettime());
-			holder.tvOrder.setText(listPackages.get(position).getOrderNo());
-			holder.tvPostDate.setText(listPackages.get(position).getTime());
-			holder.tvAddress.setText(listPackages.get(position).getAddress());
-			holder.tvTel.setText(listPackages.get(position).getuTel());
+			holder.tvOrder.setText(order);
+			holder.tvPostDate.setText(begtime);
+			holder.tvAddress.setText(ename);
+			holder.tvTel.setText(postman);
+			holder.tvBoxid.setText("箱号：" + bname);
+			holder.tvPoster.setText(postman);
+			holder.tvGetTime.setText(endtime);
 			holder.btnGet.setVisibility(View.GONE);
 		}
 		
@@ -117,7 +132,7 @@ public class PostPackageListViewAdapter extends BaseAdapter {
 		
 	}
 	
-	//取件对话框
+	//取件对话框,取件时用systemid去取
 	private void createDialog(final int position){
 		Builder builder = new Builder(context);
 		builder.setMessage("确认是否取件？");
@@ -125,53 +140,53 @@ public class PostPackageListViewAdapter extends BaseAdapter {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				int lock = Integer.valueOf(listPackages.get(position).getLockCode());
-				int boxid = Integer.valueOf(listPackages.get(position).getBoxId());
-				//取件
-				httpHelper.getPackage(mApp.getUser(), mApp.getPassword(), lock, boxid, 2, new OpenBoxCall() {
-					
-					@Override
-					public void call(String errorCode) {
-						Log.e("确认是否取件","" + errorCode);
-						if("0".equals(errorCode.trim())){
-							mHandler.post(new Runnable() {
+//				int lock = Integer.valueOf(listRecord.get(position).getLockCode());
+//				int boxid = Integer.valueOf(listRecord.get(position).getBoxId());
+				//取件时用systemid去取
+				String systemid = listRecord.get(position).getSystemid() ;
+				httpHelper.getExpress(mApp.getUser(), mApp.getPassword(), systemid, 
+						Integer.valueOf(TipsHttpError.GET_PACKAGER_MODE_NORMAL), new HttpCallBack(){
+
+							@Override
+							public void call(Object obj, String err) {
+								//返回开箱结果
 								
-								@Override
-								public void run() {
-									Toast.makeText(context, "取件成功" , 0).show();
-									//发送广播
-									Intent intent = new Intent();
-									intent.setAction("update");
-									context.sendBroadcast(intent);
-//									removeItem(position);
-									
-								}
-							});
-						}else{
-							Toast.makeText(context, "取件失败，err=" + errorCode , 0).show();
-						}
-					}
-				});
+								
+							}
 				
+				});
+				//取件
+//				httpHelper.getPackage(mApp.getUser(), mApp.getPassword(), lock, boxid, 2, new OpenBoxCall() {
+//					
+//					@Override
+//					public void call(String errorCode) {
+//						Log.e("确认是否取件","" + errorCode);
+//						if("0".equals(errorCode.trim())){
+//							mHandler.post(new Runnable() {
+//								
+//								@Override
+//								public void run() {
+//									Toast.makeText(context, "取件成功" , 0).show();
+//									//发送广播
+//									Intent intent = new Intent();
+//									intent.setAction("update");
+//									context.sendBroadcast(intent);
+////									removeItem(position);
+//									
+//								}
+//							});
+//						}else{
+//							Toast.makeText(context, "取件失败，err=" + errorCode , 0).show();
+//						}
+//					}
+//				});
+//				
 			}
 		});
 		builder.setNegativeButton("取消", null);
 		builder.create().show();
 	}
 
-	
-	private void removeItem(int position){
-//		this.listPackages.remove(position);
-		List<PostPackages> mList = new ArrayList<PostPackages>();
-		for(int i = 0 ; i < listPackages.size() ; i++){
-			if(i != position){
-				mList.add(mList.get(i));
-			}
-		}
-		listPackages.clear();
-		listPackages.addAll(mList);
-		this.notifyDataSetChanged();
-	}
 	private class ViewHolder {
 		TextView tvOrder ;
 		TextView tvPostDate ;
@@ -181,6 +196,7 @@ public class PostPackageListViewAdapter extends BaseAdapter {
 		TextView tvBoxid ;
 		TextView tvGetTime ;
 		TextView tvTel;
+		TextView tvPoster;
 		Button btnGet ;
 		
 	}
