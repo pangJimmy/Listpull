@@ -169,32 +169,6 @@ public class GetPackageQueryAdapter extends BaseAdapter {
 							}
 				
 				});
-				//取件
-//				httpHelper.getPackage(mApp.getUser(), mApp.getPassword(), lock, boxid, 2, new OpenBoxCall() {
-//					
-//					@Override
-//					public void call(String errorCode) {
-//						Log.e("确认是否取件","" + errorCode);
-//						if("0".equals(errorCode.trim())){
-//							mHandler.post(new Runnable() {
-//								
-//								@Override
-//								public void run() {
-//									Toast.makeText(context, "取件成功" , 0).show();
-//									//发送广播
-//									Intent intent = new Intent();
-//									intent.setAction("update");
-//									context.sendBroadcast(intent);
-////									removeItem(position);
-//									
-//								}
-//							});
-//						}else{
-//							Toast.makeText(context, "取件失败，err=" + errorCode , 0).show();
-//						}
-//					}
-//				});
-//				
 			}
 		});
 		builder.setNegativeButton("取消", null);

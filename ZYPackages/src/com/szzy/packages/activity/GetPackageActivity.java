@@ -69,14 +69,6 @@ public class GetPackageActivity extends Activity implements OnClickListener{
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case MSG_UPDATE://更新listview信息
-//				synchronized (listViewData) {
-//					Toast.makeText(GetPackageActivity.this, "数据更新成功", 0).show();
-//					if(MODE_ALL == 1){
-////						listViewData.setAdapter(postAdapter);
-//					}else{
-//						listViewData.setAdapter(getAdapter);
-//					}
-//				}
 				break;
 
 			default:
@@ -107,9 +99,9 @@ public class GetPackageActivity extends Activity implements OnClickListener{
 	private void initView(){
 		imgBack = (ImageView) findViewById(R.id.imageButton_back) ;
 		tvTitleNotRecv = (TextView)findViewById(R.id.textView_get_not_receive);
-		tvTitleNotRecv.setText("寄件记录");
+//		tvTitleNotRecv.setText("寄件记录");
 		tvTitleRecv = (TextView) findViewById(R.id.textView_get_received);
-		tvTitleRecv.setText("取件记录");
+//		tvTitleRecv.setText("取件记录");
 		tvTitleNotRecvBar = (TextView) findViewById(R.id.textView_get_not_receive_bar);
 		tvTitleRecvBar = (TextView) findViewById(R.id.textView_get_received_bar);
 		ptrl = (PullToRefreshLayout) findViewById(R.id.listView_frag_get_data);
@@ -122,6 +114,7 @@ public class GetPackageActivity extends Activity implements OnClickListener{
 			@Override
 			public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
 //				sendHttp();//发送http请求
+				//刷新记录
 				refreshRecord() ;
 			}
 
@@ -175,7 +168,7 @@ public class GetPackageActivity extends Activity implements OnClickListener{
 		
 	}
 	
-	private boolean isrefreshRecord = false ;
+	private boolean isrefreshRecord = false ;//防止在未返回时，多次发送同样的请求
 	/**
 	 * 刷新查询请求
 	 */

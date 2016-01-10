@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+         >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="寄存时间：" />
+
+        <TextView
+            android:id="@+id/textView_listview_item_get_family_begtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:text="2011" />
+
+    </LinearLayout>
+    <View 
+         android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginLeft="10dp" 
+        android:layout_marginRight="10dp"
+        android:background="@drawable/dotted_line"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:orientation="horizontal"
+        android:padding="2dp" >
+
+        <ImageView
+            android:id="@+id/imageView_listview_item_post_ogo"
+            android:layout_width="wrap_content"
+            android:layout_height="120dp"
+            android:src="@drawable/ic_list" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:minHeight="100dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+				<TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="寄存者：" />
+                
+
+                <TextView
+                    android:id="@+id/textView_listview_item_get_family_post"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1511111111111" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+				<TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="状态：" />
+                
+
+                <TextView
+                    android:id="@+id/textView_listview_item_get_family_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="state" />
+
+            </LinearLayout>
+<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="取件者：" />
+
+                <TextView
+                    android:id="@+id/textView_listview_item_get_family_geter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+
+            </LinearLayout>
+            <TextView
+                    android:id="@+id/textView_listview_item_get_family_ename"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="lockName" />
+            <TextView
+                android:id="@+id/textView_listview_item_get_family_boxname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="boxid" />
+
+            <TextView
+                android:id="@+id/textView_listview_item_get_family_gettime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="gettime" />
+
+        </LinearLayout>
+        <Button 
+            android:id="@+id/button_listview_item_get_family_get_package"
+            android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                
+                android:focusable="false"
+                android:text="取件"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

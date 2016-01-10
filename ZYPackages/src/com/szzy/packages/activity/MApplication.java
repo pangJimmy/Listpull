@@ -3,6 +3,7 @@ package com.szzy.packages.activity;
 import java.util.List;
 
 import com.szzy.packages.entity.Box;
+import com.szzy.packages.entity.BoxInfo;
 import com.szzy.packages.entity.PostBoxInfo;
 import com.szzy.packages.entity.UserInfo;
 import com.szzy.packages.entity.UserLoginInfo;
@@ -23,12 +24,26 @@ public class MApplication extends Application {
 	public List<Box> listBox ;//箱子数量
 	
 	public String lockId ;//箱柜编码
+	/****---------分割线--------****/
 	
 	private UserInfo userInfo ;//存储用户登录信息
 	
 	private UserLoginInfo loginInfo ;//用户登录信息
 	
+	private List<BoxInfo> listBoxInfo ;//箱门数量
 	
+	
+	
+	public List<BoxInfo> getListBoxInfo() {
+		return listBoxInfo;
+	}
+
+
+	public void setListBoxInfo(List<BoxInfo> listBoxInfo) {
+		this.listBoxInfo = listBoxInfo;
+	}
+
+
 	public UserLoginInfo getLoginInfo() {
 		return loginInfo;
 	}

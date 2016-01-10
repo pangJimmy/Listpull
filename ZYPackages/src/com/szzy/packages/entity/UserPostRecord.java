@@ -1,5 +1,7 @@
 package com.szzy.packages.entity;
 
+import java.io.UnsupportedEncodingException;
+
 import com.szzy.packages.tool.Tools;
 
 /**
@@ -14,6 +16,7 @@ import com.szzy.packages.tool.Tools;
 	 * getman:取件人
 	 * endtime:取件时间，可空 
 	 * state:寄存状态(0未取，1已取)
+	 * msg 留言
  * @author mac
  *
  */
@@ -25,7 +28,33 @@ public class UserPostRecord {
 	 private String  setman;       //寄存人
 	 private String  getman;       //取件人
 	 private String  endtime;       //取件时间，可空 
+	 private String getstyle ;
 	 private String  state;       //寄存状态(0未取，1已取)
+	 private String msg  ;//留言
+	 
+	 
+	public String getGetstyle() {
+		return getstyle;
+	}
+	public void setGetstyle(String getstyle) {
+		this.getstyle = getstyle;
+	}
+	public String getMsg() {
+		return msg;
+	}
+	public void setMsg(String msg) {
+		if(msg != null && msg.length() > 0){
+			byte[] enameByte = Tools.HexString2Bytes(msg);
+			try {
+				this.msg = new String(enameByte, "GBK");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else{
+			this.msg = "" ;
+		}
+	}
 	public String getSystemid() {
 		return systemid;
 	}
@@ -45,7 +74,12 @@ public class UserPostRecord {
 	public void setEname(String ename) {
 		if(ename != null && ename.length() > 0){
 			byte[] enameByte = Tools.HexString2Bytes(ename);
-			this.ename = new String(enameByte);
+			try {
+				this.ename = new String(enameByte , "GBK");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}else{
 			this.ename = "" ;
 		}

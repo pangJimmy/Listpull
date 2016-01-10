@@ -90,6 +90,14 @@ public abstract class MBaseActivity extends Activity implements OnClickListener{
 		
 	}
 	
+	/**
+	 * 提示信息
+	 * @param info
+	 */
+	public void ToastInfo(String info){
+		Toast.makeText(this, info, Toast.LENGTH_SHORT).show() ;
+	}
+	
 	public Dialog dialog ;  //对话框
 	
 	/**

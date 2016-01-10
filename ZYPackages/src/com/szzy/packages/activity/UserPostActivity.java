@@ -31,9 +31,9 @@ public class UserPostActivity extends Activity implements OnClickListener{
 	private ImageView imgBack ;  //返回键
 	private ListView listMenu ; 
 	//菜单主标题
-	private String[] strMenus = new String[]{"快递待收", "服务上门", "亲友寄存"} ;
+	private String[] strMenus = new String[]{"快递待收", "服务上门", "亲友寄存" , "寄存取件"} ;
 	//菜单副标题
-	private String[] strSubs = new String[]{"我要发哪家快递", "我要洗衣、洗车", "我寄你拿，妈妈再也不担心我没带钥匙了"};
+	private String[] strSubs = new String[]{"我要发哪家快递", "我要洗衣、洗车", "我寄你拿，妈妈再也不担心我没带钥匙了" ,"我寄你拿，妈妈再也不担心我没带钥匙了"};
 	
 	private List<Map<String, Object>> listData ;   //数据
 	private ListViewUPadapter adapter ; 
@@ -82,6 +82,11 @@ public class UserPostActivity extends Activity implements OnClickListener{
 					break;
 				case 2://亲友寄存
 					intent.setClass(UserPostActivity.this, FamilyPostActivity.class) ;
+					startActivity(intent) ;
+//					Utils.tipsUnfinish(UserPostActivity.this) ;
+					break;
+				case 3://寄存取件
+					intent.setClass(UserPostActivity.this, GetFamilyPostActivity.class) ;
 					startActivity(intent) ;
 //					Utils.tipsUnfinish(UserPostActivity.this) ;
 					break;

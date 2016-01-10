@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.szzy.packages.R;
 import com.szzy.packages.entity.Box;
+import com.szzy.packages.entity.BoxInfo;
 
 import android.content.Context;
 import android.util.Log;
@@ -17,9 +18,9 @@ import android.widget.TextView;
 public class MSelectBoxAdapter extends BaseAdapter {
 
 	private Context context ;
-	private  List<Box> listBox ;
+	private  List<BoxInfo> listBox ;
 	private LayoutInflater inflater ;
-	public MSelectBoxAdapter(Context context, List<Box> listBox){
+	public MSelectBoxAdapter(Context context, List<BoxInfo> listBox){
 		this.context = context ;
 		this.listBox = listBox ;
 		this.inflater = LayoutInflater.from(context);
@@ -59,8 +60,8 @@ public class MSelectBoxAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		//添加数据
-		holder.tvBoxId.setText(listBox.get(position).getBoxName());
-		int typeInt = Integer.valueOf(listBox.get(position).getBoxType());
+		holder.tvBoxId.setText(listBox.get(position).getBname());
+		int typeInt = Integer.valueOf(listBox.get(position).getBtype());
 		switch (typeInt) {
 		case 1:
 			holder.tvBoxType.setText("快递柜（大）");
@@ -82,11 +83,14 @@ public class MSelectBoxAdapter extends BaseAdapter {
 			break;
 		}
 //		Log.e("state", listBox.get(position).getBoxState().trim());
-		if("0".equals(listBox.get(position).getBoxState().trim())){
+		if("0".equals(listBox.get(position).getBstate().trim())){
 			holder.tvBoxState.setText("可投递");
 			holder.layout.setBackgroundResource(R.drawable.corners_bg_select);
-		}else{
+		}else if("1".equals(listBox.get(position).getBstate().trim())){
 			holder.tvBoxState.setText("已占用");
+			holder.layout.setBackgroundResource(R.drawable.corners_background);
+		}else if("2".equals(listBox.get(position).getBstate().trim())){
+			holder.tvBoxState.setText("箱门故障");
 			holder.layout.setBackgroundResource(R.drawable.corners_background);
 		}
 		

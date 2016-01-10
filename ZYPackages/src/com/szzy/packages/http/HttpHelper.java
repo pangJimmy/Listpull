@@ -27,7 +27,7 @@ import android.util.Log;
  */
 public class HttpHelper {
 	/**服务器地址***////
-	private final String BASE_URI = "http://szzhenyao.6655.la:8009/";//http://112.74.67.62:8008/     //szzhenyao.6655.la:8008
+	private final String BASE_URI = "http://192.168.1.51:8009/";//http://112.74.67.62:8008/     //szzhenyao.6655.la:8008
 	/**连接测试指令***/
 	private final int CMD_Test = 1 ;
 	/**用户登录指令***/
@@ -412,15 +412,16 @@ public class HttpHelper {
 	  * @param callback
 	  */
 	 public void userPost(final String user, final String password, final String ecode , final String bcode,
-			 final String getUserPhone, final HttpCallBack callback){
+			 final String getUserPhone, final String msg ,final HttpCallBack callback){
 		 executorService.submit(new Runnable() {
 			@Override
 			public void run() {
 				try{
 					HttpClient client = new DefaultHttpClient();
 					HttpGet httpget = new HttpGet();
-					String request = BASE_URI + "?CMD=" + CMD_HTTP_GET_EXPRESS+"&username=" + user + 
-							"&userpass=" + password + "&ecode=" + ecode + "&bcode=" + bcode + "&getuserphone=" + getUserPhone;
+					String request = BASE_URI + "?CMD=" + CMD_HTTP_USER_POST + "&username=" + user + 
+							"&userpass=" + password + "&ecode=" + ecode + "&bcode=" + bcode + 
+							"&getuserphone=" + getUserPhone + "&msg=" + msg;
 					LogInfo("userPost  request = ", request) ;
 					httpget.setURI(new URI(request));
 					//设置连接超时为5S
@@ -430,7 +431,7 @@ public class HttpHelper {
 						String strResult = EntityUtils.toString(response.getEntity(),"UTF-8");
 						if(strResult != null){
 							LogInfo("userPost  strResult = ", strResult) ;
-							
+							callback.call(HttpUtil.resolveUserPost(strResult), HttpUtil.getError(strResult));
 							 return ;
 						}
 					}
@@ -460,7 +461,7 @@ public class HttpHelper {
 					HttpClient client = new DefaultHttpClient();
 					HttpGet httpget = new HttpGet();
 					String request = BASE_URI + "?CMD=" + CMD_HTTP_USER_GET+"&username=" + user + 
-							"&userpass=" + password + "&systemid=" + systemid;
+							"&userpass=" + password + "&systemid=" + systemid + "&mode=1";
 					LogInfo("userGet  request = ", request) ;
 					httpget.setURI(new URI(request));
 					//设置连接超时为5S
@@ -470,7 +471,8 @@ public class HttpHelper {
 						String strResult = EntityUtils.toString(response.getEntity(),"UTF-8");
 						if(strResult != null){
 							LogInfo("userGet  strResult = ", strResult) ;
-							
+							//回调给界面
+							callback.call(null, HttpUtil.getError(strResult));
 							 return ;
 						}
 					}
@@ -595,7 +597,8 @@ public class HttpHelper {
 						String strResult = EntityUtils.toString(response.getEntity(),"UTF-8");
 						if(strResult != null){
 							LogInfo("queryUserPostGet  strResult = ", strResult) ;
-							
+							//回调给界面
+							callback.call(HttpUtil.resolveUserPostRecord(strResult), HttpUtil.getError(strResult));
 							 return ;
 						}
 					}
@@ -715,9 +718,9 @@ public class HttpHelper {
 						if(response.getStatusLine().getStatusCode() == 200){
 							String strResult = EntityUtils.toString(response.getEntity(),"UTF-8");
 							if(strResult != null){
-								LogInfo("savePosterPost  strResult = ", strResult) ;
+								LogInfo("getBoxInfo  strResult = ", strResult) ;
 								//回调，返回箱门信息
-								callback.call(null, HttpUtil.getError(strResult));
+								callback.call(HttpUtil.resolveGetBox(strResult), HttpUtil.getError(strResult));
 								 return ;
 							}
 						}

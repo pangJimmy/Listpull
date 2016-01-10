@@ -144,8 +144,10 @@ public class TipsHttpError {
 					//正确返回不做处理
 					if(errorCode.equals(OK)){
 						return ;
+					}else{
+						msg = "err=" + errorCode + "未知错误";
 					}
-					msg = "err=" + errorCode + "未知错误";
+					
 				}
 //				switch (errorCode) {
 //				case "0":

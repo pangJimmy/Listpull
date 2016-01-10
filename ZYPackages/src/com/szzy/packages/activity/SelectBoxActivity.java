@@ -8,6 +8,7 @@ import java.util.Map;
 import com.szzy.packages.R;
 import com.szzy.packages.adapter.MSelectBoxAdapter;
 import com.szzy.packages.entity.Box;
+import com.szzy.packages.entity.BoxInfo;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -21,13 +22,18 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
-//选择投递柜
+/**
+ * 选择投递柜
+ * @author mac
+ *
+ */
 public class SelectBoxActivity extends Activity {
 
 	private ImageView imgBack ; //返回
 	private GridView gridViewBoxs ;//用于填充箱子
 	private MApplication mApp ;
-	private List<Box> listBox ;
+//	private List<Box> listBox ;
+	private List<BoxInfo> listBox ;
 //	private SimpleAdapter simpleAdapter ;
 	private MSelectBoxAdapter mAdapter ;
 	private List<Map<String, String>> listMap ;
@@ -38,15 +44,18 @@ public class SelectBoxActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_selectbox);
 		mApp = (MApplication) getApplication();
-		listBox = mApp.getListBox();
+		//获取全局箱门
+		listBox = mApp.getListBoxInfo();
 		initView();
 	}
 	
+	//初始化UI
 	private void initView(){
 		imgBack = (ImageView) findViewById(R.id.imageView_select_box_back);
 		gridViewBoxs = (GridView) findViewById(R.id.gridView_select_box);
 		mAdapter = new MSelectBoxAdapter(this, listBox);
 		gridViewBoxs.setAdapter(mAdapter);
+		//返回
 		imgBack.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -55,13 +64,15 @@ public class SelectBoxActivity extends Activity {
 				
 			}
 		});
+		//监听箱门点击事件
 		gridViewBoxs.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Box box = listBox.get(position);
-				if("0".equals(box.getBoxState())){
+//				Box box = listBox.get(position);
+				BoxInfo box = listBox.get(position) ;
+				if("0".equals(box.getBstate())){
 //					Toast.makeText(mApp, "可用", 0).show();
 					Intent intent = new Intent();
 					intent.putExtra("position", position);

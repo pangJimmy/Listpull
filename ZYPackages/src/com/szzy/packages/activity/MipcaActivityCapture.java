@@ -34,6 +34,7 @@ import com.szzy.packages.http.OpenBoxCall;
 import com.szzy.packages.tool.TipsHttpError;
 /**
  * Initial the camera
+ * 扫描二维码
  * @author Ryan.Tang
  */
 public class MipcaActivityCapture extends Activity implements Callback {
@@ -66,15 +67,6 @@ public class MipcaActivityCapture extends Activity implements Callback {
 		Log.e("ACTION", getIntent().getIntExtra("mode", 0)+ "");
 		httpHelper = new HttpHelper();
 		mApp = (MApplication) getApplication();
-//		Button mButtonBack = (Button) findViewById(R.id.button_back);
-//		mButtonBack.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				MipcaActivityCapture.this.finish();
-//				
-//			}
-//		});
 		hasSurface = false;
 		inactivityTimer = new InactivityTimer(this);
 	}
@@ -144,54 +136,17 @@ public class MipcaActivityCapture extends Activity implements Callback {
 				bundle.putString("result", resultString);
 				mApp.setLockId(resultString);
 //				bundle.putString("result", resultString);
-				//保存箱柜编号
-//				mApp.setLockId(resultString);
-//				startActivity(resultIntent);
-				int lockCode = 0 ;
-				try{
-					lockCode = Integer.valueOf(resultString);
-				}catch(Exception e){
-					Toast.makeText(mApp, "箱柜二维码错误，请重新扫码", 0).show();
-					return ;
-				}
+//				int lockCode = 0 ;
+//				try{
+//					lockCode = Integer.valueOf(resultString);
+//				}catch(Exception e){
+//					Toast.makeText(mApp, "箱柜二维码错误，请重新扫码", 0).show();
+//					return ;
+//				}
 				
 				MipcaActivityCapture.this.setResult(RESULT_OK, resultIntent);
 				MipcaActivityCapture.this.finish();
 				//验证
-//				httpHelper.checkLock(mApp.getUser(), mApp.getPassword(), lockCode, new OpenBoxCall() {
-//					
-//					@Override
-//					public void call(final String errorCode) {
-//						Log.e("", ""+ errorCode);
-//						
-//						if("0".equals(errorCode)){
-//							mHandler.post(new Runnable() {
-//								
-//								@Override
-//								public void run() {
-////									startActivity(resultIntent);
-////									MipcaActivityCapture.this.finish();
-//									MipcaActivityCapture.this.setResult(RESULT_OK, resultIntent);
-//									MipcaActivityCapture.this.finish();
-//								}
-//							});
-//						}else{
-////							Toast.makeText(mApp, "err=" + errorCode, 0).show();
-//							mHandler.post(new Runnable() {
-//								
-//								@Override
-//								public void run() {
-////									startActivity(resultIntent);
-////									MipcaActivityCapture.this.finish();
-//									//给出提示
-//									TipsHttpError.toastError(mApp, errorCode);
-//									MipcaActivityCapture.this.finish();
-//								}
-//							});
-//						}
-//						
-//					}
-//				});
 			}else if(mode == 0){//快递单号扫描
 				Intent mIntent = new Intent();
 				Bundle mBundle = new Bundle();

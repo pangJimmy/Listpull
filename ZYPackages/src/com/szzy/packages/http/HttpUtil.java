@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.szzy.packages.entity.Box;
+import com.szzy.packages.entity.BoxInfo;
 import com.szzy.packages.entity.GetPackages;
+import com.szzy.packages.entity.LockInfo;
 import com.szzy.packages.entity.MailBox;
 import com.szzy.packages.entity.PostBoxInfo;
 import com.szzy.packages.entity.PostPackages;
@@ -213,16 +215,7 @@ public class HttpUtil {
 	}
 	
 	/**
-	 * 用户取件记录查询 
-	 * rows:记录总条数 
-	 * systemid:系统记录编号 
-	 * begtime:存放时间 
-	 * ename:柜名称 
-	 * bname:箱名称
-	 * setman:寄存人
-	 * getman:取件人
-	 * endtime:取件时间，可空 
-	 * state:寄存状态(0未取，1已取)
+	 * 用户寄存记录查询 
 	 * 
 	 * @param response
 	 * @return
@@ -234,16 +227,16 @@ public class HttpUtil {
 			listRecord = new ArrayList<UserPostRecord>();
 			rex0 += "&";
 			String rows = response.replaceAll(rex0, "")// 获取行数
-					.replaceAll("\\&.*", "").replaceAll("rows=", "");
+					.replaceAll("\\&.*", "").replaceAll("row=", "");
 			// 当行数
 			if (rows != null && rows.length() > 0) {
-				rex0 += "rows=" + rows + "&";
-				int rowInt = Integer.valueOf(rows);
+				rex0 += "row=" + rows + "&";
+//				int rowInt = Integer.valueOf(rows);
 				String[] row = response.replaceAll(rex0, "").split("systemid");
 				String[] itemRows = null;
 				for (int i = 0; i < row.length; i++) {
 					itemRows = row[i].split("\\&");
-					if (itemRows != null && itemRows.length == 8) {// 8个字段
+					if (itemRows != null && itemRows.length == 10) {// 8个字段
 						String rex1 = ".*\\=";
 						UserPostRecord record = new UserPostRecord();
 						record.setSystemid(itemRows[0].replaceAll(rex1, ""));
@@ -253,7 +246,9 @@ public class HttpUtil {
 						record.setSetman(itemRows[4].replaceAll(rex1, ""));
 						record.setGetman(itemRows[5].replaceAll(rex1, ""));
 						record.setEndtime(itemRows[6].replaceAll(rex1, ""));
-						record.setState(itemRows[7].replaceAll(rex1, ""));
+						record.setGetstyle(itemRows[7].replaceAll(rex1, ""));
+						record.setState(itemRows[8].replaceAll(rex1, ""));
+						record.setMsg(itemRows[9].replaceAll(rex1, ""));
 						listRecord.add(record);
 					}
 				}
@@ -261,6 +256,74 @@ public class HttpUtil {
 		}
 		return listRecord;
 	}
+	
+	
+	/**
+	 * 解析获取箱门信息
+	 * @param response
+	 * @return
+	 */
+	public static LockInfo resolveGetBox(String response){
+		LockInfo lockInfo = new LockInfo() ;
+		String rex0 = "err=0";
+		String systemid ;
+		String ename ;
+		int boxNum ;
+		List<BoxInfo> listBox = null ;
+		if (response.startsWith(rex0)) {
+			rex0 += "&" ;
+			systemid = response.replaceAll(".*systemid\\=", "")
+					.replaceAll("\\&.*", "");
+			lockInfo.setSystemid(systemid) ;
+			ename = response.replaceAll(".*ename\\=", "")
+					.replaceAll("\\&.*", "");
+			lockInfo.setEname(ename);
+			String boxNumStr = response.replaceAll(".*boxnum\\=", "")
+					.replaceAll("\\&.*", "");
+			if(boxNumStr != null && boxNumStr.length() > 0){
+				boxNum = Integer.valueOf(boxNumStr) ;
+				lockInfo.setBoxNum(boxNum);
+				String boxs = response.replaceAll(".*boxnum\\=" + boxNumStr, "") ;
+				String[] rows ;
+				String[] itemRow ;
+				if(boxs != null && boxs.length() > 0){
+					rows = boxs.split("bcode") ;
+					listBox = new ArrayList<BoxInfo>() ;
+					for(int i  = 0 ; i < rows.length ; i++){
+						itemRow = rows[i].split("\\&");
+						
+						if(itemRow != null && itemRow.length == 4){//4个字段
+							BoxInfo boxInfo = new BoxInfo() ;
+							boxInfo.setBcode(itemRow[0].replaceAll(".*\\=", ""));
+							boxInfo.setBname(itemRow[1].replaceAll(".*\\=", ""));
+							boxInfo.setBtype(itemRow[2].replaceAll(".*\\=", ""));
+							boxInfo.setBstate(itemRow[3].replaceAll(".*\\=", ""));
+							listBox.add(boxInfo);
+						}
+						
+					}
+					lockInfo.setListBox(listBox) ;
+				}
+			}
+			
+		}
+		return lockInfo ;
+	}
+	
+	/**
+	 * 解析用户寄存返回
+	 * @param response
+	 * @return  返回数据为 系统记录id，此ID用于寄存保存指令
+	 */
+	public static String resolveUserPost(String response){
+		String systemid = null ;
+		String rex0 = "err=0" ;
+		if(response.startsWith(rex0)){
+			systemid = response.replaceAll(".*systemid\\=", "") ;
+		}
+		return systemid;
+	}
+	
 	
 	/*******-----------------分割线------------------********/
 
