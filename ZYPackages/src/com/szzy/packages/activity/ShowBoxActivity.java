@@ -120,7 +120,10 @@ public class ShowBoxActivity extends NormalBaseActivity {
 							public void run() {
 								ShowBoxActivity.super.closeDialog() ;
 								TipsHttpError.toastError(mApp, err) ;
-								
+								//提示开箱成功
+								if(err.equals(TipsHttpError.OK)){
+									TipsHttpError.toastNormal(mApp, "开箱成功") ;
+								}
 							}
 						});
 						

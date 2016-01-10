@@ -100,6 +100,16 @@ public class TipsHttpError {
 		map1.put(ERROR_NETWORK, "网络连接出错");
 		
 	}
+	
+	
+	/**
+	 * 正常提示
+	 * @param context
+	 * @param info
+	 */
+	public static void toastNormal(Context context ,String info){
+		Toast.makeText(context, info, Toast.LENGTH_SHORT).show() ;
+	}
 
 	/**
 	 * 0	正确

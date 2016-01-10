@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.szzy.packages.R;
 import com.szzy.packages.base.NormalBaseActivity;
@@ -121,7 +122,9 @@ public class MailBoxActivity extends NormalBaseActivity {
 							public void run() {
 								MailBoxActivity.super.closeDialog() ;
 								TipsHttpError.toastError(mApp, err) ;
-								
+								if(err.equals(TipsHttpError.OK)){
+									TipsHttpError.toastNormal(mApp, "¿ªÏä³É¹¦") ;
+								}
 							}
 						});
 						

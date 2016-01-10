@@ -1,5 +1,7 @@
 package com.szzy.packages.base;
 
+import java.util.Timer;
+
 import com.szzy.packages.R;
 
 import android.app.Activity;
@@ -66,6 +68,7 @@ public abstract class NormalBaseActivity extends Activity implements OnClickList
 		}
 	}
 	
+	
 	/**
 	 * 创建等待对话框
 	 * @param content
@@ -81,6 +84,8 @@ public abstract class NormalBaseActivity extends Activity implements OnClickList
         wmParams.format = PixelFormat.TRANSPARENT;  //内容全透明  
 //        wmParams.format = PixelFormat.TRANSLUCENT;  //内容半透明  
         wmParams.alpha=0.8f;    //调节透明度，1.0最大 
+        //点击屏幕不消失
+        dialog.setCanceledOnTouchOutside(false);
 		dialog.show() ;
 		
 	}
