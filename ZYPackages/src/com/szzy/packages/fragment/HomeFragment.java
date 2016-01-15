@@ -59,7 +59,8 @@ public class HomeFragment extends Fragment implements OnClickListener{
 	//图标显示顺序：附近、取件、寄件、投递、商店、互动
 	private int[] imgMenus = new int[]{ R.drawable.home_ic_get_package,
 			R.drawable.home_ic_user_post,
-			R.drawable.home_ic_shop,R.drawable.home_ic_hd,R.drawable.home_ic_get_package,R.drawable.home_ic_user_post}; //图标
+			R.drawable.home_ic_shop,R.drawable.home_ic_hd,
+			R.drawable.img_home_mail_box,R.drawable.img_home_show_box}; //图标
 	private String[] strMenus = new String[] { "取件", "寄存",  "商店", "互动","信箱", "展示柜"};
 	private List<Map<String, Object>> listMenu ;  //菜单项数据
 	private HomeMenuGridAdapter gridAdapter ;//首页菜单项适配器

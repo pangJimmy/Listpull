@@ -1,5 +1,8 @@
 package com.szzy.packages.activity;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import com.szzy.packages.R;
 import com.szzy.packages.base.MBaseActivity;
 import com.szzy.packages.entity.LockInfo;
@@ -13,6 +16,7 @@ import com.szzy.packages.tool.Utils;
 
 import android.app.Activity;
 import android.app.AlertDialog.Builder;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -59,6 +63,10 @@ public class FamilyPostActivity extends MBaseActivity implements OnClickListener
 	private int serverTel = 0 ;
 	private String telStr = null;  //取件人电话
 	private String msg = null ;//用户寄存留言
+	
+	private Timer timerPost ;  //箱门开启定时器，当用户开箱之后，超时时间设定为60s，如果60s无操作，则重新开箱
+	private TextView tvDialogTime ;//倒计时
+	private int timeout = 60 ;//超时60秒
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -169,6 +177,7 @@ public class FamilyPostActivity extends MBaseActivity implements OnClickListener
 		case SELECT_BOX_REQUEST_CODE://选择快递箱号
 			if(resultCode == RESULT_OK){
 				int position = data.getIntExtra("position", 0);
+				boxPosition = position ;
 				//获取箱门名称
 				boxName = mApp.getListBoxInfo().get(position).getBname();
 				
@@ -259,6 +268,9 @@ public class FamilyPostActivity extends MBaseActivity implements OnClickListener
 	private TextView tvDiaCompanyType ;
 	private TextView tvDiaBox ;
 	
+	private int boxPosition ;  //箱门位置
+	
+	Dialog mdialog ;//对话框
 	//创建对话框
 	private void createDialog(final String sysid){
 		Builder builder = new Builder(this);
@@ -273,6 +285,44 @@ public class FamilyPostActivity extends MBaseActivity implements OnClickListener
 		tvDiaLock.setText(lockName);
 		tvDiaCompany.setText(telStr);
 		tvDiaBox.setText(boxName);
+		tvDialogTime = (TextView) view.findViewById(R.id.textView_dialog_time) ;
+		if(timerPost != null){
+			timerPost.cancel() ;
+			timerPost = null ;
+		}
+		timeout = 60 ;
+		//计时器
+		timerPost = new Timer();
+		timerPost.schedule(new TimerTask() {
+			
+			@Override
+			public void run() {
+				if(timeout > 0){
+					//刷新计时
+					mHandler.post(new Runnable() {
+						public void run() {
+							tvDialogTime.setText("" + timeout);
+						}
+					});
+					
+				}else{
+					//对话框取消,计时取消
+					mHandler.post(new Runnable() {
+						public void run() {
+							//取消对话框
+							if(mdialog != null){
+								mdialog.dismiss() ;
+							}
+							
+						}
+					});
+					
+					timerPost.cancel() ;
+				}
+				timeout-- ;
+			}
+		}, 100	, 1000) ;
+
 		builder.setPositiveButton("确认投递", new DialogInterface.OnClickListener() {
 			
 			@Override
@@ -287,8 +337,13 @@ public class FamilyPostActivity extends MBaseActivity implements OnClickListener
 							public void run() {
 								//保存成功
 								if(err.equals(TipsHttpError.OK)){
+									
 									FamilyPostActivity.super.ToastInfo("寄存成功");
 									Log.e("error--- ", "OK");
+									editLetter.setText("");
+									btnSelectBox.setText("点击选择箱子") ;
+									//修改箱门状态,0正常，1箱门锁定， 3箱门故障
+									mApp.getListBoxInfo().get(boxPosition).setBstate("1") ;
 								}else{
 									TipsHttpError.toastError(mApp, err)  ;
 								}
@@ -297,51 +352,20 @@ public class FamilyPostActivity extends MBaseActivity implements OnClickListener
 						
 					}
 				}) ;
-//				Log.e("TEL", postTel + "") ;
-//				//提交
-//				httpHelper.postPackages(mApp.getUser(), mApp.getPassword(),
-//						Integer.valueOf(lockCode), boxId, telStr, "", new OpenBoxCall() {
-//					
-//					@Override
-//					public void call(String errorCode) {
-//						Log.e("55", errorCode);
-//						if("0".equals(errorCode.trim())){
-//							mHandler.post(new Runnable() {
-//								
-//								@Override
-//								public void run() {
-//									Toast.makeText(mApp, "投递成功", 0).show();
-//									btnSelectBox.setText("点击选择箱子");
-//									//更新箱子状态
-//									httpHelper.queryBoxInfo(mApp.getUser(), mApp.getPassword(), Integer.valueOf(lockCode), new QueryBoxCall() {
-//										
-//										@Override
-//										public void call( PostBoxInfo boxInfo) {
-//											if(boxInfo!= null){
-//												mApp.setListBox( boxInfo.getListBox());
-//												 lockName = boxInfo.getLockName();
-//												//更新柜名称
-//												mHandler.post(new Runnable() {
-//													
-//													@Override
-//													public void run() {
-//														editLock.setText(lockName);
-//													}
-//												});
-//											}
-//											
-//										}
-//									});
-//								}
-//							});
-//						}
-//						
-//					}
-//				});
 				
 			}
 		});
-		builder.setNegativeButton("取消", null) ;
-		builder.create().show() ;
+		builder.setNegativeButton("取消", new  DialogInterface.OnClickListener(){
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				//取消计时
+				timerPost.cancel();
+				
+			}
+			
+		});
+		mdialog = builder.create() ;
+		mdialog.show() ;
 	}
 }

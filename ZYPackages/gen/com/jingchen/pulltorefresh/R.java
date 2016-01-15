@@ -24,27 +24,27 @@ public final class R {
 	public static final class drawable {
 		public static final int anim = 0x7f020000;
 		public static final int ic_launcher = 0x7f020016;
-		public static final int load_failed = 0x7f02001b;
-		public static final int load_succeed = 0x7f02001c;
-		public static final int loading = 0x7f02001d;
-		public static final int pull_icon_big = 0x7f02003c;
-		public static final int pullup_icon_big = 0x7f02003d;
-		public static final int refresh_failed = 0x7f02003e;
-		public static final int refresh_succeed = 0x7f02003f;
-		public static final int refreshing = 0x7f020040;
+		public static final int load_failed = 0x7f02001e;
+		public static final int load_succeed = 0x7f02001f;
+		public static final int loading = 0x7f020020;
+		public static final int pull_icon_big = 0x7f02003f;
+		public static final int pullup_icon_big = 0x7f020040;
+		public static final int refresh_failed = 0x7f020041;
+		public static final int refresh_succeed = 0x7f020042;
+		public static final int refreshing = 0x7f020043;
 	}
 	public static final class id {
-		public static final int giv_anim = 0x7f0a007a;
-		public static final int head_view = 0x7f0a0079;
-		public static final int loading_icon = 0x7f0a00a8;
-		public static final int loadmore_view = 0x7f0a00a6;
-		public static final int loadstate_iv = 0x7f0a00aa;
-		public static final int loadstate_tv = 0x7f0a00a9;
-		public static final int pull_icon = 0x7f0a00ac;
-		public static final int pullup_icon = 0x7f0a00a7;
-		public static final int refreshing_icon = 0x7f0a00ad;
-		public static final int state_iv = 0x7f0a00af;
-		public static final int state_tv = 0x7f0a00ae;
+		public static final int giv_anim = 0x7f0a007b;
+		public static final int head_view = 0x7f0a007a;
+		public static final int loading_icon = 0x7f0a00a9;
+		public static final int loadmore_view = 0x7f0a00a7;
+		public static final int loadstate_iv = 0x7f0a00ab;
+		public static final int loadstate_tv = 0x7f0a00aa;
+		public static final int pull_icon = 0x7f0a00ad;
+		public static final int pullup_icon = 0x7f0a00a8;
+		public static final int refreshing_icon = 0x7f0a00ae;
+		public static final int state_iv = 0x7f0a00b0;
+		public static final int state_tv = 0x7f0a00af;
 	}
 	public static final class layout {
 		public static final int gif_headview = 0x7f03001a;

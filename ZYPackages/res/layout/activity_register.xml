@@ -41,6 +41,62 @@
             android:hint="请输入11位手机号码"
              >
         </EditText>
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(必填)"/>
+    </LinearLayout>
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/LoginFont"
+            android:text="登录密码：" />
+
+        <EditText
+            android:id="@+id/edit_register_upassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:password="true"
+            android:hint="请输入登录密码"
+             >
+        </EditText>
+                <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(必填)"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/LoginFont"
+            android:text="确认密码：" />
+
+        <EditText
+            android:id="@+id/edit_register_enter_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:password="true"
+            android:hint="请再次输入您的登录密码"
+             >
+        </EditText>
+                <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(必填)"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -51,7 +107,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             style="@style/LoginFont"
             android:text="登录名：" />
 
@@ -60,7 +115,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:visibility="gone"
             android:singleLine="true"
             android:hint="请输入登录名"
              >
@@ -87,6 +141,10 @@
             android:hint="请输入您的真实姓名"
              >
         </EditText>
+                <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(可选填)"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -106,8 +164,13 @@
             android:singleLine="true"
             android:id="@+id/edit_register_id"
             android:hint="请输入18位身份证号"
+            android:text=""
              >
         </EditText>
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(可选填)"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -129,51 +192,12 @@
             android:hint="请输入邮箱，如12345@qq.com"
              >
         </EditText>
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(可选填)"/>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/LoginFont"
-            android:text="登录密码：" />
-
-        <EditText
-            android:id="@+id/edit_register_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:singleLine="true"
-            android:password="true"
-            android:hint="请输入登录密码"
-             >
-        </EditText>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/LoginFont"
-            android:text="确认密码：" />
-
-        <EditText
-            android:id="@+id/edit_register_enter_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:singleLine="true"
-            android:password="true"
-            android:hint="请再次输入您的登录密码"
-             >
-        </EditText>
-    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

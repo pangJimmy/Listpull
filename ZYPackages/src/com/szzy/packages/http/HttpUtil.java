@@ -16,6 +16,7 @@ import com.szzy.packages.entity.UserGetRecord;
 import com.szzy.packages.entity.UserInfo;
 import com.szzy.packages.entity.UserLoginInfo;
 import com.szzy.packages.entity.UserPostRecord;
+import com.szzy.packages.entity.VersionInfo;
 
 public class HttpUtil {
 	
@@ -88,32 +89,33 @@ public class HttpUtil {
 					
 				}
 			}
+			//解析展示柜数量
+			showBoxNum = response.replaceAll(".*showboxnum\\=", "")
+					.replaceAll("\\&.*", "");
+			if(showBoxNum != null && showBoxNum.length() > 0){
+				String[] showRow = response.replaceAll(".*showboxnum\\=" + showBoxNum + "\\&", "")
+						.split("mecode");
+				String[] itemShowRows = null;
+				if(showRow != null && showRow.length > 0){
+					listShowBox = new ArrayList<ShowBox>() ;
+					for(int i = 0; i < showRow.length; i++){
+						itemShowRows = showRow[i].split("\\&");
+						if(itemShowRows != null && itemShowRows.length == 3){//3个字段
+							String rex1 = ".*\\=";
+							ShowBox showBox = new ShowBox() ;
+							showBox.setMecode(itemShowRows[0].replaceAll(rex1, ""));
+							showBox.setMbcode(itemShowRows[1].replaceAll(rex1, ""));
+							showBox.setMname(itemShowRows[2].replaceAll(rex1, "")) ;
+							listShowBox.add(showBox);
+						}
+					}
+					info.setListShowBox(listShowBox);
+					
+				}
+			}
 			
 		}
-		//解析展示柜数量
-		showBoxNum = response.replaceAll(".*showboxnum\\=", "")
-				.replaceAll("\\&.*", "");
-		if(showBoxNum != null && showBoxNum.length() > 0){
-			String[] showRow = response.replaceAll(".*showboxnum\\=" + showBoxNum + "\\&", "")
-					.split("mecode");
-			String[] itemShowRows = null;
-			if(showRow != null && showRow.length > 0){
-				listShowBox = new ArrayList<ShowBox>() ;
-				for(int i = 0; i < showRow.length; i++){
-					itemShowRows = showRow[i].split("\\&");
-					if(itemShowRows != null && itemShowRows.length == 3){//3个字段
-						String rex1 = ".*\\=";
-						ShowBox showBox = new ShowBox() ;
-						showBox.setMecode(itemShowRows[0].replaceAll(rex1, ""));
-						showBox.setMbcode(itemShowRows[1].replaceAll(rex1, ""));
-						showBox.setMname(itemShowRows[2].replaceAll(rex1, "")) ;
-						listShowBox.add(showBox);
-					}
-				}
-				info.setListShowBox(listShowBox);
-				
-			}
-		}
+		
 		return info ;
 	}
 	
@@ -324,6 +326,24 @@ public class HttpUtil {
 		return systemid;
 	}
 	
+	
+	/**
+	 * 解析版本返回数据
+	 * @param response
+	 * @return
+	 */
+	public static VersionInfo resolveVersion(String response){
+		VersionInfo info = new VersionInfo() ;
+		String rex0 = "err=0" ;
+		if(response.startsWith(rex0)){
+			String versionCode = response.replaceAll(".*Version=", "")
+					.replaceAll("\\&.*", "");
+			String url = response.replaceAll(".*url=", "");
+			info.setUrl(url);
+			info.setVersionName(versionCode);
+		}
+		return info ;
+	}
 	
 	/*******-----------------分割线------------------********/
 

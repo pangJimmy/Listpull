@@ -1,5 +1,6 @@
 package com.szzy.packages.activity;
 
+import java.io.UnsupportedEncodingException;
 import java.util.regex.Pattern;
 
 import android.app.Activity;
@@ -72,7 +73,7 @@ public class RegisterActivity extends Activity implements OnClickListener{
 		editRealName = (EditText) findViewById(R.id.edit_register_real_name);
 		editID = (EditText) findViewById(R.id.edit_register_id);
 		editEmail = (EditText) findViewById(R.id.edit_register_email);
-		editPassword = (EditText) findViewById(R.id.edit_register_password);
+		editPassword = (EditText) findViewById(R.id.edit_register_upassword);
 		editEnterPassword = (EditText) findViewById(R.id.edit_register_enter_password);
 		btnRegister = (Button) findViewById(R.id.button_register_register);
 		
@@ -204,11 +205,19 @@ public class RegisterActivity extends Activity implements OnClickListener{
 			realName = "";
 			hexName = "";
 		}else{
-			hexName = Tools.Bytes2HexString(realName.getBytes(), realName.getBytes().length) ;
-			if(!isRealName(hexName)){
-				tips("真实姓名长度过长");
-				return ;
+			hexName = "";
+			try {
+				byte[] nameByte = realName.getBytes("GBK") ;
+				hexName = Tools.Bytes2HexString(nameByte, nameByte.length) ;
+				if(!isRealName(hexName)){
+					tips("真实姓名长度过长");
+					return ;
+				}
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+
 		}
 		//身份证
 		if(idCard == null || idCard.length() == 0){

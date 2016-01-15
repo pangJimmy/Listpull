@@ -60,5 +60,27 @@
             android:text="" />
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请再60秒内，完成操作，还剩" />
+
+        <TextView
+            android:id="@+id/textView_dialog_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="秒" />
+
+    </LinearLayout>
 
 </LinearLayout>

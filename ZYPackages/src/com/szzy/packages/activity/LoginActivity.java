@@ -31,6 +31,7 @@ import com.szzy.packages.http.HttpCallBack;
 import com.szzy.packages.http.HttpHelper;
 import com.szzy.packages.http.LoginCallBack;
 import com.szzy.packages.http.QueryNotGetPackageCall;
+import com.szzy.packages.http.UpdateManager;
 import com.szzy.packages.tool.TipsHttpError;
 
 import android.app.Activity;
@@ -78,6 +79,8 @@ public class LoginActivity extends MBaseActivity {
 		setContentView(R.layout.activity_login);
 		super.onCreate(savedInstanceState);
 		mAppli = (MApplication) getApplication();
+		//检测版本是否更新
+		new UpdateManager(this) ;
 	}
 	
 	@Override

@@ -27,7 +27,7 @@ import android.util.Log;
  */
 public class HttpHelper {
 	/**服务器地址***////
-	private final String BASE_URI = "http://192.168.1.51:8009/";//http://112.74.67.62:8008/     //szzhenyao.6655.la:8008
+	private final String BASE_URI = "http://112.74.67.62:8008/";//http://112.74.67.62:8008/     //szzhenyao.6655.la:8008
 	/**连接测试指令***/
 	private final int CMD_Test = 1 ;
 	/**用户登录指令***/
@@ -94,6 +94,8 @@ public class HttpHelper {
 	private final int CMD_HTTP_USER_POST_SAVE = 17 ;
 	/**获取箱门信息**/
 	private final int CMD_HTTP_GET_BOX_INFO = 18 ;
+	/**获取获取软件版本**/
+	private final int CMD_HTTP_GET_SOFT_VERSION = 19 ;
 	
 	
 	
@@ -734,6 +736,48 @@ public class HttpHelper {
 				}
 			});
 	 }
+	 
+	 
+	 /**
+	  * 获取软件信息
+	  * @param user
+	  * @param password
+	  * @param ecode  箱柜上的二维码
+	  * @param callback
+	  */
+	 public void getVersion( final HttpCallBack callback) {
+		 executorService.submit(new Runnable() {
+				@Override
+				public void run() {
+					try{
+						HttpClient client = new DefaultHttpClient();
+						HttpGet httpget = new HttpGet();
+						String request = BASE_URI + "?CMD=" + CMD_HTTP_GET_SOFT_VERSION + "&mode=1" ;
+						LogInfo("getVersion  request = ", request) ;
+						httpget.setURI(new URI(request));
+						//设置连接超时为5S
+						client.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 5000);
+						HttpResponse response = client.execute(httpget);
+						if(response.getStatusLine().getStatusCode() == 200){
+							String strResult = EntityUtils.toString(response.getEntity(),"UTF-8");
+							if(strResult != null){
+								LogInfo("getVersion  strResult = ", strResult) ;
+								//回调，返回箱门信息
+								callback.call(HttpUtil.resolveVersion(strResult) , HttpUtil.getError(strResult));
+								 return ;
+							}
+						}
+						//其他错误
+						callback.call(null, TipsHttpError.ERROR_UNKNOW);
+					}catch(Exception exception){
+						Log.e("", exception.toString());
+						//网络超时或者网络连接出错
+						callback.call(null, TipsHttpError.ERROR_NETWORK);
+					}
+				}
+			});
+	 }
+
 	 
 /**********--------------------------分割线-----------------------------*************/	 
 	 /**

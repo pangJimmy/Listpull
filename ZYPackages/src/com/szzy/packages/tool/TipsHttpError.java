@@ -38,7 +38,7 @@ public class TipsHttpError {
 	private final static  String ERROR_SYS_BISS = "-4";
 	private final static  String ERROR_DEV_DISCONN = "-5";
 	private final static  String ERROR_BOX_NOT_USE = "1";
-	private final static  String ERROR_CMD = "2";
+	private final static  String ERROR_CMD = "9";
 	private final static  String ERROR_USER_NOT = "3";
 	private final static  String ERROR_NOT_PRIMISSION = "4";
 	private final static  String ERROR_BOX_TYPE = "5";
@@ -119,7 +119,7 @@ public class TipsHttpError {
 -4	当前操作员较多,系统繁忙
 -5	设备已断开连接
 1	箱门故障,暂停使用
-2	命令错误
+9	命令错误
 3	投递人账号无效
 4	无权操作
 5	箱门种类选择错误
