@@ -60,8 +60,8 @@ public class HomeFragment extends Fragment implements OnClickListener{
 	private int[] imgMenus = new int[]{ R.drawable.home_ic_get_package,
 			R.drawable.home_ic_user_post,
 			R.drawable.home_ic_shop,R.drawable.home_ic_hd,
-			R.drawable.img_home_mail_box,R.drawable.img_home_show_box}; //图标
-	private String[] strMenus = new String[] { "取件", "寄存",  "商店", "互动","信箱", "展示柜"};
+			R.drawable.img_home_mail_box}; //图标
+	private String[] strMenus = new String[] { "取件", "寄存",  "商店", "互动","信箱"};
 	private List<Map<String, Object>> listMenu ;  //菜单项数据
 	private HomeMenuGridAdapter gridAdapter ;//首页菜单项适配器
 //	private String[] 
@@ -243,7 +243,7 @@ public class HomeFragment extends Fragment implements OnClickListener{
 	private final String shop = "商店" ;
 	private final String hudong = "互动" ;
 	private final String mailBox = "信箱" ;
-	private final String showBox = "展示柜";
+//	private final String showBox = "展示柜";
 	/**
 	 * 菜单项点击事件监听
 	 * @author mac
@@ -287,10 +287,10 @@ public class HomeFragment extends Fragment implements OnClickListener{
 				Intent toMailBox = new Intent(getActivity(), MailBoxActivity.class) ;
 				startActivity(toMailBox) ;
 				break;
-			case showBox://展示柜
-				Intent toShowBox = new Intent(getActivity(), ShowBoxActivity.class) ;
-				startActivity(toShowBox) ;
-				break ;
+//			case showBox://展示柜
+//				Intent toShowBox = new Intent(getActivity(), ShowBoxActivity.class) ;
+//				startActivity(toShowBox) ;
+//				break ;
 			default:
 				break;
 			}
